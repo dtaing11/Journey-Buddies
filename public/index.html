@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Firebase Hosting</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <h1>Journey Buddies</h1>
+  
+  <!-- Main Section -->
+  <section id="whenSignedOut">
+      <button id="signinemail" class="btn btn-primary">Sign in with Email</button>
+  </section>
+
+  <!-- Sign Up Section -->
+  <section id="signUpSection" hidden>
+      <h2>Sign Up</h2>
+      <input type="username" id="signUpUsername" placeholder="Username" required />
+      <input type="email" id="signUpEmail" placeholder="Email" required />
+      <input type="password" id="signUpPassword" placeholder="Password" required />
+      <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password" required />
+      <button id="signUpBtn" class="btn btn-primary">Sign Up</button>
+      <button id="backToSignInBtn" class="btn btn-secondary">Back to Sign In</button>
+  </section>
+
+  <!-- Sign In Section -->
+  <section id="signInSection" hidden>
+      <h2>Sign In</h2>
+      <input type="email" id="signInEmail" placeholder="Email or Username" required />
+      <input type="password" id="signInPassword" placeholder="Password" required />
+      <button id="signInBtn" class="btn btn-primary">Sign In</button>
+      <button id="signUpFromSignInBtn" class="btn btn-secondary">Sign Up</button>
+      <button id="backFromSignInBtn" class="btn btn-secondary">Back</button>
+  </section>
+
+  <!-- User Details Section -->
+  <section id="whenSignedIn" hidden>
+    <div id="userDetails"></div>
+    <div>
+      <a href="profile.html" id="profile" class="btn btn-primary">Profile</a>
+      <button id="signOutBtn" class="btn btn-primary">Sign Out</button>
+    </div>
+    <div>
+      <button id="homeBtn" class="btn btn-primary">Home</button>
+      <button id="mapBtn" class="btn btn-primary">Map</button>
+      <button id="postsBtn" class="btn btn-primary">Posts</button>
+      <button id="reelsBtn" class="btn btn-primary">Reels</button>
+      <button id="groupsBtn" class="btn btn-primary">Groups</button>
+      <button id="inboxBtn" class="btn btn-primary">Inbox</button>
+      <a href="post.html" id="postBtn" class="btn btn-primary" hidden>Create A Post</a>
+    </div>
+    <div id="home"></div>    
+    <div id="map" hidden> 
+      <h2>2</h2>
+    </div>
+    <div id="posts" hidden> 
+      <h2>3</h2>
+    </div>    
+    <div id="reels" hidden> 
+      <h2>Not Available For This Prototype</h2>
+    </div>
+    <div id="groups" hidden> 
+      <h2>5</h2>
+    </div>    
+    <div id="inbox" hidden> 
+      <h2>6</h2>
+    </div>
+  </section>
+</body>
+</html>
