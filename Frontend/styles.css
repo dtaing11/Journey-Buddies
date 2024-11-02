@@ -27,12 +27,18 @@ header {
 }
 
 
+
+
 .logo {
     width: 100px;
     height: auto;
     margin-right: 10px;
     padding: 5px;
     border-radius: 8px;
+}
+.logo:hover 
+{
+    transform: scale(1.09);
 }
 
 nav {
@@ -54,6 +60,8 @@ nav a {
 nav a:hover {
     color: #ffd700;
 }
+
+
 
 
 footer {
