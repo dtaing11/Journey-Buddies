@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map - Journey Buddies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <img src="assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
+        <h1>Journey Buddies</h1>
+        <nav>
+            <a href="#destinations">Posts</a>
+            <a href="map.html">Map</a>
+            <a href="#contact">Reels</a>
+            <a href="#contact">Your Group</a>
+            <a href="#contact">Indox</a>
+        </nav>
+    </header>
+
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Travel Explorer. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([0, 0], 3); // Set initial view
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var festivalIcon = L.icon({
+    iconUrl: 'assets/Festival.svg', 
+    iconSize: [38, 95], 
+    iconAnchor: [22, 94], 
+    popupAnchor: [-3, -76] 
+        });
+
+        var musicIcon = L.icon({
+    iconUrl: 'assets/Music.svg', 
+    iconSize: [38, 95], 
+    iconAnchor: [22, 94], 
+    popupAnchor: [-3, -76] 
+    });
+
+    var foodIcon = L.icon({
+    iconUrl: 'assets/Food.svg', 
+    iconSize: [38, 95], 
+    iconAnchor: [22, 94], 
+    popupAnchor: [-3, -76] 
+        });
+
+    
+
+    L.marker([-37.8161, 144.9543], {icon: foodIcon}).addTo(map) 
+        .bindPopup('Your marker text here.')
+        .openPopup();
+
+    </script>
+</body>
+</html>

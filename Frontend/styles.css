@@ -55,6 +55,18 @@ nav a:hover {
     color: #ffd700;
 }
 
+.map-container {
+    flex-grow: 1; 
+    width: 100%;
+    overflow: hidden; 
+}
+
+#map {
+    height: 100%; 
+}
+
+
+
 
 footer {
     text-align: center;
