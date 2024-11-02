@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Groups.css">
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <title>Messenger</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/socket.io-client/dist/socket.io.js"></script>
+</head>
+<body>
+    <header>
+        <img src = "../assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
+        <h1>Journey Buddies</h1>
+        <nav>
+            <a href="#destinations">Posts</a>
+            <a href="#tips">Map</a>
+            <a href="#contact">Reels</a>
+            <a href="#contact">Your Group</a>
+            <a href="#contact">Inbox</a>
+    
+        </nav>
+    </header>
+
+    <div class="messenger">
+        <div class="chatMenu">
+            <div class="chatMenuWrapper">
+                <div id="conversations">
+                    <!-- Conversations will be populated here -->
+                </div>
+            </div>
+        </div>
+        <div class="chatBox">
+            <div class="chatBoxWrapper">
+                <div id="chatBoxTop">
+                    <!-- Messages will be populated here -->
+                </div>
+                <div class="chatBoxBottom">
+                    <textarea class="chatMessageInput" placeholder="Write something..."></textarea>
+                    <button class="chatSubmitButton">Send</button>
+                </div>
+            </div>
+        </div>
+        <div class="chatOnline">
+            <div class="chatOnlineWrapper">
+                <!-- Online users will be populated here -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

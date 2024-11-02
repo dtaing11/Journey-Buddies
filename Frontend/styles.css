@@ -3,19 +3,105 @@
     --secondary-color: #ffd700;
     --background-color: #FEFAE0;
     --text-color: #333;
-    --SecondaryAccent: #E0E5B6;
-    --PrimaryAccent: #CCD5AE;
-
- 
+    --white: #ffffff;
+    --light-background: rgba(255, 255, 255, 0.5);
 }
 
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Single Day', 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
     color: #333;
+}
+
+/* 4  scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FEFAE0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FAEDCE;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FAEDCE;
+}
+
+*{
+  scrollbar-width: thin;
+  scrollbar-color: #FAEDCE #FEFAE0;
+}
+
+:root {
+    --primary-color: #FAEDCE;
+    --secondary-color: #ffd700;
+    --background-color: #FEFAE0;
+    --text-color: #333;
+    --SecondaryAccent: #E0E5B6;
+    --PrimaryAccent: #CCD5AE;
+}
+body {
+    font-family: 'Single Day', Arial, sans-serif; 
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: #333;
+}
+
+header {
+    background-color:var(--primary-color);
+    color: var(--text-color);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+
+.logo {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+nav {
+    margin-top: 10px; 
+    width: 100%; 
+    display: end; 
+    justify-content: end;
+}
+nav a {
+    margin: 0 15px;
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ffd700;
+}
+
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: var(--PrimaryAccent);
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
 }
 
 header {
@@ -55,11 +141,61 @@ nav a:hover {
     color: #ffd700;
 }
 
+section {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+h2 {
+    color: #0077cc;
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input[type="text"], input[type="email"], textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0077cc;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #005fa3;
+}
 
 footer {
     text-align: center;
     padding: 15px;
-    background-color: var(--PrimaryAccent);
+    background-color: #0077cc;
     color: white;
     position: relative;
     bottom: 0;

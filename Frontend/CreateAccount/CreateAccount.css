@@ -1,0 +1,120 @@
+*{
+    font-family: 'Single Day', Arial, sans-serif;
+}
+
+html, body {
+    height: 100%; /* Ensure the html and body cover the full viewport height */
+    margin: 0; /* Remove default margin */
+    background-color: #FEFAE0; /* Set the background color */
+}
+
+.login{
+    width: 100vw;
+    height: 100vh;
+    background-color: #FEFAE0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginWrapper{
+    width: 70%;
+    height: 70%;
+    display: flex;   
+}
+
+.loginLeft,.loginRight{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.loginLogo{
+    font-size: 50px;
+    font-weight: 800;
+    color: #CCD5AE;
+    margin-bottom: 10px;
+}
+
+.loginDesc{
+    font-size: 28px;
+    padding-bottom: 150px;
+    color: #CCD5AE;
+}
+
+.loginBox{
+    height: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.loginInput{
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid rgb(143, 143, 143);
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.loginInput:focus{
+    outline:none;
+}
+
+.loginButton{
+    height: 50px;
+    border-radius: 10px;
+    border:none;
+    background-color: #CCD5AE;
+    color: aliceblue;
+    font-size: 30px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.loginForgot{
+    text-align: center;
+    color: aliceblue;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.loginRegisterButton{
+    width: 60%;
+    align-self: center;
+    height: 50px;
+    border-radius: 10px;
+    border:none;
+    background-color: #E0E5B6;
+    color: aliceblue;
+    font-size: 30px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; /* Optional: adjust for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+    background: #FEFAE0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FAEDCE;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FAEDCE; /* Optional: different color on hover */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #FAEDCE #FEFAE0;
+}
