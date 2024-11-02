@@ -386,14 +386,21 @@ function fetchEvents() {
   
           const eventImage = document.createElement('img');
           eventImage.src = event.pictureUrl;
-          eventImage.alt = event.eventName;
-          eventImage.style.maxWidth = '100%';
+
+          const viewDetailsButton = document.createElement('button');
+          viewDetailsButton.textContent = 'View Details';
+          viewDetailsButton.classList.add('btn', 'btn-primary', 'mt-2');
   
           eventContainer.appendChild(eventTitle);
           eventContainer.appendChild(eventDateElement);
           eventContainer.appendChild(eventLocationElement);
           eventContainer.appendChild(eventDescriptionElement);
           eventContainer.appendChild(eventImage);
+          eventContainer.appendChild(viewDetailsButton);
+
+          viewDetailsButton.onclick = () => {
+            window.location.href = `specpost.html?picture=${encodeURIComponent(event.pictureUrl)}`;
+          };
   
           homeDiv.appendChild(eventContainer);
         });
@@ -402,6 +409,6 @@ function fetchEvents() {
         console.error('Error fetching events:', error);
       });
   }
-  
+
 document.addEventListener('DOMContentLoaded', listenForPosts);
 document.addEventListener('DOMContentLoaded', fetchEvents);
