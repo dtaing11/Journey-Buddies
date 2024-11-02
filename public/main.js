@@ -81,8 +81,8 @@ signUpBtn.onclick = () => {
                 UserID: userCredential.user.uid,
                 UserName: username, // Save the username
                 UserEmail: email,   // Save the user email
-                friends_ID: [],      // Initialize with an empty array of tuples
-                friends_Names: []
+                friends_Names: [], 
+                friends_ID: [] // Initialize with an empty array of tuples
             })
             .then(() => {
                 console.log("User document created successfully.");
@@ -148,55 +148,6 @@ document.getElementById('signinemail').onclick = () => {
     whenSignedOut.hidden = true; // Hide main sign-out section
     signInSection.hidden = false; // Show sign-in section
 };
-
-// Sign in with Google
-document.getElementById('signingoogle').onclick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-        .then(userCredential => {
-            console.log("Signed in with Google:", userCredential.user);
-
-            // Get the user's Google profile information
-            const user = userCredential.user;
-            const username = user.displayName || "User"; // Use Google nickname or default to "User"
-            const email = user.email;
-
-            // Reference to the user document
-            const userDocRef = db.collection('users').doc(user.uid);
-
-            // Check if the user document already exists
-            userDocRef.get().then(doc => {
-                if (doc.exists) {
-                    console.log("User document already exists:", doc.data());
-                    // You can update UI or perform other actions here
-                } else {
-                    // User document does not exist, create it
-                    console.log("Creating new user document for:", user.uid);
-                    return userDocRef.set({
-                        UserID: user.uid,
-                        UserName: username, // Save the Google nickname as username
-                        UserEmail: email,   // Save the user email
-                        friends_ID: [],      // Initialize with an empty array of tuples
-                        friends_Names: []
-                    });
-                }
-            })
-            .then(() => {
-                console.log("User document created successfully.");
-                showUserDetails(user); // Update UI with user details
-            })
-            .catch(error => {
-                console.error("Error accessing user document:", error);
-                alert(error.message);
-            });
-        })
-        .catch(error => {
-            console.error("Error signing in with Google:", error);
-            alert(error.message);
-        });
-};
-
-
 
 // Sign Out event handler
 signOutBtn.onclick = () => {
