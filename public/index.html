@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Firebase Hosting</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <h1>Journey Buddies</h1>
+  
+  <!-- Main Section -->
+  <section id="whenSignedOut">
+      <button id="signingoogle" class="btn btn-primary">Sign in with Google</button>
+      <button id="signinemail" class="btn btn-primary">Sign in with Email</button>
+  </section>
+
+  <!-- Sign Up Section -->
+  <section id="signUpSection" hidden>
+      <h2>Sign Up</h2>
+      <input type="username" id="signUpUsername" placeholder="John Doe" required />
+      <input type="email" id="signUpEmail" placeholder="Email" required />
+      <input type="password" id="signUpPassword" placeholder="Password" required />
+      <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password" required />
+      <button id="signUpBtn" class="btn btn-primary">Sign Up</button>
+      <button id="backToSignInBtn" class="btn btn-secondary">Back to Sign In</button>
+  </section>
+
+  <!-- Sign In Section -->
+  <section id="signInSection" hidden>
+      <h2>Sign In</h2>
+      <input type="email" id="signInEmail" placeholder="Email or Username" required />
+      <input type="password" id="signInPassword" placeholder="Password" required />
+      <button id="signInBtn" class="btn btn-primary">Sign In</button>
+      <button id="signUpFromSignInBtn" class="btn btn-secondary">Sign Up</button>
+      <button id="backFromSignInBtn" class="btn btn-secondary">Back</button>
+  </section>
+
+  <!-- User Details Section -->
+  <section id="whenSignedIn" hidden>
+      <div id="userDetails"></div>
+      <button id="accountswitch" class ="btn btn-primary">Switch Accounts</button>
+      <button id="friends" class ="btn btn-primary">Friendlist</button>
+      <a href="post.html" id="post" class="btn btn-primary">Create A Post</a>
+      <button id="signOutBtn" class="btn btn-primary">Sign Out</button>
+  </section>
+</body>
+</html>

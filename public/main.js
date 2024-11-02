@@ -1,15 +1,5 @@
 //AUTH RELATED
 const auth = firebase.auth();
-const firebaseConfig = {
-  apiKey: "AIzaSyBrl6bcC2ZqBXxkE-F-38xaB9xQBWMiV24",
-  authDomain: "journey-buddies.firebaseapp.com",
-  projectId: "journey-buddies",
-  storageBucket: "journey-buddies.firebasestorage.app",
-  messagingSenderId: "432550474346",
-  appId: "1:432550474346:web:22f6f0b3b6f5bb3cd69013",
-  measurementId: "G-42MS9QF9CB"
-};
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
@@ -24,7 +14,6 @@ const signUpBtn = document.getElementById('signUpBtn');
 const backToSignInBtn = document.getElementById('backToSignInBtn');
 const signUpFromSignInBtn = document.getElementById('signUpFromSignInBtn');
 const backFromSignInBtn = document.getElementById('backFromSignInBtn');
-const backFromFriendsSection = document.getElementById('backFromFriendsSection')
 
 const signUpUsernameInput = document.getElementById('signUpUsername')
 const signUpEmailInput = document.getElementById('signUpEmail');
@@ -237,8 +226,15 @@ function showUserDetails(user) {
     whenSignedIn.hidden = false;
 }
 
-backFromFriendsSection.onclick = () => {
-    clearInputFields();  // Clear fields before showing sign-up
-    friendsSection.hidden = true;
-    whenSignedIn.hidden = false;
-};
+auth.onAuthStateChanged(user => {
+    if (user) {
+        showUserDetails(user);
+        whenSignedIn.hidden = false;
+        whenSignedOut.hidden = true; // Hide sign-in section
+    } else {
+        whenSignedIn.hidden = true;
+        whenSignedOut.hidden = false; // Show main sign-in section
+    }
+});
+
+console.log("Firebase config:", firebaseConfig);
