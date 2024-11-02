@@ -28,6 +28,7 @@ const userDetails = document.getElementById('userDetails');
 
 // Function to clear input fields
 function clearInputFields() {
+    signUpUsernameInput.value = '';
     signUpEmailInput.value = '';
     signUpPasswordInput.value = '';
     signUpConfirmPasswordInput.value = '';
@@ -57,8 +58,8 @@ backToSignInBtn.onclick = () => {
 
 // Sign Up event handler
 signUpBtn.onclick = () => {
-    const username = signUpUsernameInput.value;
-    const email = signUpEmailInput.value;
+    const username = signUpUsernameInput.value.trim();
+    const email = signUpEmailInput.value.trim();
     const password = signUpPasswordInput.value;
 
     if (password !== signUpConfirmPasswordInput.value) {
@@ -72,31 +73,51 @@ signUpBtn.onclick = () => {
         return;
     }
 
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            console.log("Signed up:", userCredential.user);
-
-            // Create user document in Firestore
-            db.collection('users').doc(userCredential.user.uid).set({
-                UserID: userCredential.user.uid,
-                UserName: username, // Save the username
-                UserEmail: email,   // Save the user email
-                friends_Names: [], 
-                friends_ID: [] // Initialize with an empty array of tuples
-            })
-            .then(() => {
-                console.log("User document created successfully.");
-                showUserDetails(userCredential.user);
-            })
-            .catch(error => {
-                console.error("Error creating user document:", error);
-                alert(error.message);
-            });
-        })
-        .catch(error => {
-            console.error("Error signing up:", error);
-            alert(error.message);
+    // Check if the username already exists
+    db.collection('users').where('UserName', '==', username).get()
+    .then(snapshot => {
+        console.log("Checking for existing usernames...");
+        console.log("Snapshot size:", snapshot.size);
+    
+        snapshot.forEach(doc => {
+            console.log("Found user:", doc.id, doc.data());
         });
+        if (!snapshot.empty) {
+            alert("Username already exists. Please choose a different username.");
+            return;    
+        } else {
+            // Proceed with sign-up
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    console.log("Signed up:", userCredential.user);
+
+                    // Create user document in Firestore
+                    db.collection('users').doc(userCredential.user.uid).set({
+                        UserID: userCredential.user.uid,
+                        UserName: username, // Save the username
+                        UserEmail: email,   // Save the user email
+                        friends_Names: [],
+                        friends_ID: [], // Initialize with an empty array
+                    })
+                    .then(() => {
+                        console.log("User document created successfully.");
+                        showUserDetails(userCredential.user);
+                    })
+                    .catch(error => {
+                        console.error("Error creating user document:", error);
+                        alert(error.message);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error signing up:", error);
+                    alert(error.message);
+                });
+        }
+    })
+    .catch(error => {
+        console.error("Error checking username uniqueness:", error);
+        alert("An error occurred while checking username availability. Please try again later.");
+    });
 };
 
 
