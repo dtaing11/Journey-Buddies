@@ -198,15 +198,208 @@ function showUserDetails(user) {
     whenSignedIn.hidden = false;
 }
 
+console.log("Firebase config:", firebaseConfig);
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------
+
+
+
+
+
+
+
+
+// Get references to the button elements
+const homeBtn = document.getElementById('homeBtn');
+const mapBtn = document.getElementById('mapBtn');
+const postsBtn = document.getElementById('postsBtn');
+const reelsBtn = document.getElementById('reelsBtn');
+const groupsBtn = document.getElementById('groupsBtn');
+const inboxBtn = document.getElementById('inboxBtn');
+const postBtn = document.getElementById('postBtn');
+
+// Get references to the div elements
+const homeDiv = document.getElementById('home');
+const mapDiv = document.getElementById('map');
+const postsDiv = document.getElementById('posts');
+const reelsDiv = document.getElementById('reels');
+const groupsDiv = document.getElementById('groups');
+const inboxDiv = document.getElementById('inbox');
+
+// Function to hide all divs
+function hideAllDivs() {
+    homeDiv.hidden = true;
+    mapDiv.hidden = true;
+    postsDiv.hidden = true;
+    reelsDiv.hidden = true;
+    groupsDiv.hidden = true;
+    inboxDiv.hidden = true;
+}
+
+// Event listeners for buttons
+homeBtn.addEventListener('click', () => {
+    hideAllDivs();
+    homeDiv.hidden = false;
+});
+
+mapBtn.addEventListener('click', () => {
+    hideAllDivs();
+    mapDiv.hidden = false;
+});
+
+postsBtn.addEventListener('click', () => {
+    hideAllDivs();
+    postsDiv.hidden = false;
+});
+
+reelsBtn.addEventListener('click', () => {
+    hideAllDivs();
+    reelsDiv.hidden = false;
+});
+
+groupsBtn.addEventListener('click', () => {
+    hideAllDivs();
+    groupsDiv.hidden = false;
+});
+
+inboxBtn.addEventListener('click', () => {
+    hideAllDivs();
+    inboxDiv.hidden = false;
+});
 auth.onAuthStateChanged(user => {
     if (user) {
         showUserDetails(user);
         whenSignedIn.hidden = false;
         whenSignedOut.hidden = true; // Hide sign-in section
+        
+        const currentUserId = user.uid;
+
+        // Get the user's document from Firestore
+        const userDocRef = db.collection('users').doc(currentUserId);
+        userDocRef.get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const currentUserData = doc.data();
+
+                    // Check if the username is '0'
+                    if (currentUserData.UserName === '0') {
+                        // Set hidden to false to show the button
+                        postBtn.hidden = false;
+                    } else {
+                        // Keep the button hidden
+                        postBtn.hidden = true;
+                    }
+                } else {
+                    console.error('User document not found.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error getting user document:', error);
+            });
+
     } else {
         whenSignedIn.hidden = true;
         whenSignedOut.hidden = false; // Show main sign-in section
     }
 });
 
-console.log("Firebase config:", firebaseConfig);
+// Function to update event documents
+function updateEventDocuments() {
+    db.collection('events').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+  
+          // Convert date string to Firestore Timestamp
+          const dateString = data.date; // "2024-11-22"
+          const dateParts = dateString.split("-");
+          const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+          const dateTimestamp = firebase.firestore.Timestamp.fromDate(dateObject);
+  
+          // Prepare updated data
+          const updatedData = {
+            EventName: data.event_name,
+            EventLocation: data.event_location,
+            EventDescription: data.description1 || data.description2 || '',
+            Date: dateTimestamp,
+            Picture: data.picture,
+            Likes_ID: data.likes_ID || [],
+            Userpost_ID: data.userpost_ID || [],
+            Group_ID: data.group_ID || []
+          };
+  
+          // Remove old fields
+          const fieldsToRemove = {
+            event_name: firebase.firestore.FieldValue.delete(),
+            event_location: firebase.firestore.FieldValue.delete(),
+            description1: firebase.firestore.FieldValue.delete(),
+            description2: firebase.firestore.FieldValue.delete(),
+            date: firebase.firestore.FieldValue.delete(),
+          };
+  
+          // Update the document
+          db.collection('events').doc(doc.id).update({
+            ...updatedData,
+            ...fieldsToRemove
+          })
+          .then(() => {
+            console.log(`Document ${doc.id} updated successfully.`);
+          })
+          .catch((error) => {
+            console.error(`Error updating document ${doc.id}:`, error);
+          });
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching documents:', error);
+      });
+  }
+  
+  // Call the function to update documents
+  updateEventDocuments();
+
+function listenForPosts() {
+    db.collection('events').orderBy('date', 'desc')
+        .onSnapshot((snapshot) => {
+            // Clear the home div
+            homeDiv.innerHTML = '';
+
+            snapshot.forEach((doc) => {
+                const postData = doc.data();
+                // (Create and append post elements as before)
+            });
+        }, (error) => {
+            console.error('Error listening for posts:', error);
+        });
+}
+
+function fetchEvents() {
+  db.collection('events').orderBy('Date', 'desc').get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+
+        // Access updated fields
+        const eventName = data.EventName;
+        const eventLocation = data.EventLocation;
+        const eventDescription = data.EventDescription;
+        const eventDate = data.Date.toDate(); // Convert Timestamp to Date object
+        const pictureUrl = data.Picture;
+
+        // Display or process the event data as needed
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching events:', error);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', fetchAllPosts);
