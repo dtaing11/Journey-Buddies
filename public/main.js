@@ -311,61 +311,6 @@ auth.onAuthStateChanged(user => {
     }
 });
 
-// Function to update event documents
-function updateEventDocuments() {
-    db.collection('events').get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-  
-          // Convert date string to Firestore Timestamp
-          const dateString = data.date; // "2024-11-22"
-          const dateParts = dateString.split("-");
-          const dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-          const dateTimestamp = firebase.firestore.Timestamp.fromDate(dateObject);
-  
-          // Prepare updated data
-          const updatedData = {
-            EventName: data.event_name,
-            EventLocation: data.event_location,
-            EventDescription: data.description1 || data.description2 || '',
-            Date: dateTimestamp,
-            Picture: data.picture,
-            Likes_ID: data.likes_ID || [],
-            Userpost_ID: data.userpost_ID || [],
-            Group_ID: data.group_ID || []
-          };
-  
-          // Remove old fields
-          const fieldsToRemove = {
-            event_name: firebase.firestore.FieldValue.delete(),
-            event_location: firebase.firestore.FieldValue.delete(),
-            description1: firebase.firestore.FieldValue.delete(),
-            description2: firebase.firestore.FieldValue.delete(),
-            date: firebase.firestore.FieldValue.delete(),
-          };
-  
-          // Update the document
-          db.collection('events').doc(doc.id).update({
-            ...updatedData,
-            ...fieldsToRemove
-          })
-          .then(() => {
-            console.log(`Document ${doc.id} updated successfully.`);
-          })
-          .catch((error) => {
-            console.error(`Error updating document ${doc.id}:`, error);
-          });
-        });
-      })
-      .catch((error) => {
-        console.error('Error fetching documents:', error);
-      });
-  }
-  
-  // Call the function to update documents
-  updateEventDocuments();
-
 function listenForPosts() {
     db.collection('events').orderBy('date', 'desc')
         .onSnapshot((snapshot) => {
@@ -382,24 +327,81 @@ function listenForPosts() {
 }
 
 function fetchEvents() {
-  db.collection('events').orderBy('Date', 'desc').get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-
-        // Access updated fields
-        const eventName = data.EventName;
-        const eventLocation = data.EventLocation;
-        const eventDescription = data.EventDescription;
-        const eventDate = data.Date.toDate(); // Convert Timestamp to Date object
-        const pictureUrl = data.Picture;
-
-        // Display or process the event data as needed
+    db.collection('events').get()
+      .then((querySnapshot) => {
+        const eventsArray = [];
+  
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+  
+          // Access existing fields and parse date
+          const eventName = data.event_name || 'No Event Name';
+          const eventLocation = data.event_location || 'No Location';
+          const eventDescription = data.description1 || data.description2 || 'No Description';
+          const dateString = data.date || 'No Date Provided';
+          const pictureUrl = data.picture || 'default-image-url.jpg';
+  
+          let eventDate;
+          if (dateString !== 'No Date Provided') {
+            eventDate = new Date(dateString);
+          } else {
+            eventDate = new Date(); // Default to current date if no date provided
+          }
+  
+          // Create an event object
+          const eventObject = {
+            eventName,
+            eventLocation,
+            eventDescription,
+            eventDate,
+            pictureUrl
+          };
+  
+          // Add to events array
+          eventsArray.push(eventObject);
+        });
+  
+        // Sort eventsArray by eventDate in descending order
+        eventsArray.sort((a, b) => b.eventDate - a.eventDate);
+  
+        // Clear the home div
+        homeDiv.innerHTML = '';
+  
+        // Display sorted events
+        eventsArray.forEach((event) => {
+          const eventContainer = document.createElement('div');
+          eventContainer.classList.add('event');
+  
+          const eventTitle = document.createElement('h3');
+          eventTitle.textContent = event.eventName;
+  
+          const eventDateElement = document.createElement('p');
+          eventDateElement.textContent = `Date: ${event.eventDate.toDateString()}`;
+  
+          const eventLocationElement = document.createElement('p');
+          eventLocationElement.textContent = `Location: ${event.eventLocation}`;
+  
+          const eventDescriptionElement = document.createElement('p');
+          eventDescriptionElement.textContent = event.eventDescription;
+  
+          const eventImage = document.createElement('img');
+          eventImage.src = event.pictureUrl;
+          eventImage.alt = event.eventName;
+          eventImage.style.maxWidth = '100%';
+  
+          eventContainer.appendChild(eventTitle);
+          eventContainer.appendChild(eventDateElement);
+          eventContainer.appendChild(eventLocationElement);
+          eventContainer.appendChild(eventDescriptionElement);
+          eventContainer.appendChild(eventImage);
+  
+          homeDiv.appendChild(eventContainer);
+        });
+      })
+      .catch((error) => {
+        console.error('Error fetching events:', error);
       });
-    })
-    .catch((error) => {
-      console.error('Error fetching events:', error);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', fetchAllPosts);
+  }
+  
+document.addEventListener('DOMContentLoaded', listenForPosts);
+document.addEventListener('DOMContentLoaded', fetchEvents);
