@@ -1,0 +1,195 @@
+:root {
+    --primary-color: #FAEDCE;
+    --secondary-color: #ffd700;
+    --background-color: #FEFAE0;
+    --text-color: #333;
+    --SecondaryAccent: #E0E5B6;
+    --PrimaryAccent: #CCD5AE;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.post-feed {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.post {
+    display: flex;              
+    flex-direction: column;     
+    background-color: var(--primary-color);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+    padding: 20px;     
+    cursor: pointer;        
+}
+
+.post:hover {
+    transform: scale(1.02);
+}
+
+.post img:first-of-type {     
+    border-radius: 50%;         
+    width: 50px;               
+    height: 50px;    
+    border: 10px;   
+    border-color: var(--PrimaryAccent);       
+    object-fit: cover;          
+}
+
+.post .like-button {
+    position: absolute; 
+    top: 20px; 
+    right: 10px; 
+    width: 70px; 
+    height: auto; 
+    background: none; 
+    border: none;
+    cursor: pointer; 
+}
+
+.post .like-button img {
+    width: 50%;
+    height: auto;
+    border-radius: 0%;
+}
+
+.post .like-count {
+    position: absolute; 
+    top: 50px; 
+    right: 10px; 
+    width: 40px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.post .PostImage {
+    width: 100%;                  
+    height: 200px;                
+    background-color: var(--SecondaryAccent);
+    object-fit: cover;            
+    margin-bottom: 10px;          
+}
+
+.post h3 {
+    margin: 0 0 10px 0;        
+    text-align: left;           
+}
+
+.post p {
+    margin: 0 0 10px 0;                 
+    flex: 1;
+    text-align: left; 
+}
+
+.event-details {
+    background-color: #FAEDCE; /* Background color */
+    display: flex; /* Enables flexbox layout */
+    align-items: flex-start; /* Aligns items vertically at the start */
+    gap: 20px; /* Adds space between the image and the text */
+    margin: 20px 0; /* Optional: adds margin above and below */
+    width: 100%; /* Ensures it takes the full width */
+    padding: 20px; /* Optional: adds padding inside the container */
+    box-sizing: border-box; /* Ensures padding is included in total width */
+}
+
+
+.eventImage {
+    width: 800px; /* Set the desired width for the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px; /* Optional: adds rounded corners */
+    padding-left: 135px;
+}
+
+.event-info {
+    flex: 1; /* Allows the text area to take the remaining space */
+}
+
+.eventTitle {
+    font-size: 30px; /* Adjust size as needed */
+    margin: 0 0 10px; /* Adjusts margin for spacing */
+}
+
+.eventDescription {
+    font-size: 30px; /* Adjust size as needed */
+    width: 800px; /* Set the width */
+    height: fit-content;
+    letter-spacing: 1px; /* Increase space between letters */
+    line-height: 1.5; /* Increase space between lines */
+    word-spacing: 2px; /* Optional: increase space between words */
+}
+
+
+.sidebarTitle {
+    font-size: 30px; /* Adjust size as needed */
+    padding-left: 100px;
+}
+
+.groupItem {
+    font-size: 24px; /* Adjust size as needed */
+    padding-left: 100px;
+}
+
+.formField {
+    font-size: 24px; /* Adjust size as needed */
+    padding-left: 100px;
+}
+
+.sidebar-container {
+    display: flex; /* Enables flexbox layout */
+    justify-content: center; /* Centers items horizontally */
+    gap: 20px; /* Optional: adds space between the two sidebars */
+    width: 1000px; /* Set the desired width */
+    height: 500px; /* Set the desired height */
+    margin: 0 auto; /* Centers the container on the page */
+    padding: 0; /* Remove left padding, it offsets the centering */
+}
+
+.sidebar {
+    background-color: #FAEDCE; /* Background color for the sidebar */
+    padding: 10px; /* Padding for the sidebar */
+    border-radius: 5px; /* Optional: adds rounded corners */
+    flex: 1; /* Makes each sidebar take equal width */
+    line-height: 2;
+    height: fit-content;
+}
+
+.button-container {
+    display: flex; /* Enable flexbox layout */
+    justify-content: flex-end; /* Aligns items to the right */
+    margin-top: 20px; /* Optional: adds space above the button */
+}
+
+.create-button {
+    background-color: #CCD5AE; /* Updated background color */
+    color: var(--text-color); /* Text color */
+    font-size: 18px; /* Font size */
+    padding: 10px 20px; /* Padding for the button */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+.create-button:hover {
+    background-color: #B7C19A; /* Slightly darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.create-button:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}

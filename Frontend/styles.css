@@ -9,6 +9,29 @@
  
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; /* Optional: adjust for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+    background: #FEFAE0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FAEDCE;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FAEDCE; /* Optional: different color on hover */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #FAEDCE #FEFAE0;
+}
 
 body {
     font-family: 'Single Day', Arial, sans-serif;
