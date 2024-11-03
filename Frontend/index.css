@@ -30,9 +30,12 @@
 }
 
 .post-content {
-    flex-grow: 1;
+     flex-grow: 1;
     width: 10em;
+    max-width: 100%; /* Ensure it doesn’t exceed the parent’s width */
+    max-height: 100%; /* Ensure it doesn’t exceed the parent’s width */
     margin-left: 12em;
+    box-sizing: border-box; /* Include padding and border in width calculations */
 }
 
 .post-title {
@@ -50,8 +53,9 @@
     font-size: 2.5em;
     color: #232323;
     margin-top: 1em;
-    margin-bottom: 0.25em
-
+    margin-bottom: 0.25em;
+    max-width: 100%; 
+    max-height: 100%; 
 }
 .post-interactions{
     display: flex;
