@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
     <title>Messenger</title>
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="groups.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/socket.io-client/dist/socket.io.js"></script>
 </head>
@@ -28,19 +29,52 @@
         <div class="chatMenu">
             <div class="chatMenuWrapper">
                 <div id="conversations">
-                    <!-- Conversations will be populated here -->
+                    <div class="conversation-item">
+                        <p>Your Groups</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Cheese Festival Group</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Empty</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Empty</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Empty</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Empty</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Empty</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Empty</p>
+                    </div>
+                    <div class="conversation-item">
+                        <p>Empty</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="chatBox">
-            <div class="chatBoxWrapper">
-                <div id="chatBoxTop">
-                    <!-- Messages will be populated here -->
+        <div class="chatSection">
+            <div class="chatMessages">
+                <!-- Chat messages go here -->
+                <div class="chatMessage">
+                    <p><strong>Alex Traveler:</strong> Excited for the Cheese Festival! Anyone else going?</p>
                 </div>
-                <div class="chatBoxBottom">
-                    <textarea class="chatMessageInput" placeholder="Write something..."></textarea>
-                    <button class="chatSubmitButton">Send</button>
+                <div class="chatMessage">
+                    <p><strong>You:</strong> Yes! I’ll be there too. Looking forward to it!</p>
                 </div>
+                <!-- More chat messages -->
+            </div>
+            
+            <!-- Chat Input -->
+            <div class="chatInput">
+                <input type="text" placeholder="Type a message..." />
+                <button>Send</button>
             </div>
         </div>
         <div class="chatOnline">
@@ -48,6 +82,24 @@
                 <!-- Online users will be populated here -->
             </div>
         </div>
+        
+        <div class="profileSidebar">
+            <h2>Group Members</h2>
+            <div class="profile">
+                <img src="assets/user-placeholder.png" alt="User Avatar">
+            <p>Alex Traveler</p>
+        </div>
+        <div class="profile">
+            <img src="assets/user-placeholder.png" alt="User Avatar">
+            <p>Jamie Explorer</p>
+        </div>
+        <div class="profile">
+            <img src="assets/user-placeholder.png" alt="User Avatar">
+            <p>Taylor Adventurer</p>
+        </div>
+        <!-- Add more profiles as needed -->
     </div>
+</div>
+</div>
 </body>
 </html>

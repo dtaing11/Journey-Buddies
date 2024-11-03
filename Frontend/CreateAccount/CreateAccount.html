@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Kittysocial</title>
+    <title>Journey Buddies</title>
     <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./CreateAccount.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+    <script src="CreateAccount.js" defer></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -15,23 +25,109 @@
         <div class="loginLeft">
             <h3 class="loginLogo">Journey Buddies</h3>
             <span class="loginDesc">
-                Are you ready to find a buddy to explore the world with?            </span>
+                Are you ready to find a buddy to explore the world with?
+            </span>
         </div>
         <div class="loginRight">
-            <form class="loginBox" id="registerForm">
-                <input id="username" placeholder="Username" required class="loginInput"/>
-                <input id="email" placeholder="Email" required class="loginInput" type="email"/>
-                <input id="password" placeholder="Password" required class="loginInput" type="password" minlength="6"/>
-                <input id="passwordAgain" placeholder="Confirm Password" required class="loginInput" type="password" minlength="6"/>
-                <button class="loginButton" type="submit">Create Account</button>
-            </form>
-            <button class="loginRegisterButton" onclick="window.location.href='../Login/login.html'">
-                Log Into Your Account
-            </button>
+            <!-- Sign In Form -->
+            <div id="signInSection">
+                <form class="loginBox" onsubmit="handleSignIn(event)">
+                    <input placeholder="Email/Username" type="email" required class="loginInput" id="signInEmail">
+                    <input placeholder="Password" type="password" required minlength="6" class="loginInput" id="signInPassword">
+                    <button class="loginButton" type="submit" id="signInBtn">Log In</button>
+                    <span class="loginForgot">Forgot Password?</span>
+                    <button class="loginRegisterButton" type="button" onclick="toggleForms()">
+                        Create a New Account
+                    </button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div id="signUpSection" class="hidden">
+                <form class="loginBox" onsubmit="handleSignUp(event)">
+                    <input type="username" id="signUpUsername" placeholder="Username" required class="loginInput"/>
+                    <input type="email" id="signUpEmail" placeholder="Email" required class="loginInput"/>
+                    <input type="password" id="signUpPassword" placeholder="Password" required class="loginInput" />
+                    <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password" required class="loginInput"/>
+                    <button id="signUpBtn" class="logInButton">Create Account</button>
+                    <button class="loginRegisterButton" type="button" onclick="toggleForms()">
+                        Log Into Your Account
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
+
+
+<script>
+    function toggleForms() {
+        const signInSection = document.getElementById('signInSection');
+        const signUpSection = document.getElementById('signUpSection');
+        signInSection.classList.toggle('hidden');
+        signUpSection.classList.toggle('hidden');
+    }
+    
+    function handleSignUp(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const username = document.getElementById('signUpUsername').value.trim();
+    const email = document.getElementById('signUpEmail').value.trim();
+    const password = document.getElementById('signUpPassword').value;
+    const confirmPassword = document.getElementById('signUpConfirmPassword').value;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    // Check if the username contains '@'
+    if (username.includes('@')) {
+        alert("Username cannot include '@'.");
+        return;
+    }
+
+    // Check if the username already exists
+    db.collection('users').where('UserName', '==', username).get()
+    .then(snapshot => {
+        if (!snapshot.empty) {
+            alert("Username already exists. Please choose a different username.");
+            return;    
+        } else {
+            // Proceed with sign-up
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    // Successfully created user
+                    console.log("Signed up:", userCredential.user);
+
+                    // Create user document in Firestore
+                    return db.collection('users').doc(userCredential.user.uid).set({
+                        UserID: userCredential.user.uid,
+                        UserName: username, // Save the username
+                        UserEmail: email,   // Save the user email
+                        friends_Names: [],
+                        friends_ID: [], // Initialize with an empty array
+                    });
+                })
+                .then(() => {
+                    console.log("User document created successfully.");
+                    alert("Account created successfully!");
+                    // Optionally redirect or show user details
+                })
+                .catch(error => {
+                    console.error("Error creating user document:", error);
+                    alert(error.message);
+                });
+        }
+    })
+    .catch(error => {
+        console.error("Error checking username uniqueness:", error);
+        alert("An error occurred while checking username availability. Please try again later.");
+    });
+}
+</script>
 
 </body>
 </html>

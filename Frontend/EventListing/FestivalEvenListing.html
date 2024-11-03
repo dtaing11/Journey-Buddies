@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="EventListing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <title>Post - Journey Buddies</title>
+</head>
+<body>
+    <header>
+        <img src="../assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
+        <h1>Journey Buddies</h1>
+        <nav>
+            <a href="post.html">Posts</a>
+            <a href="map.html">Map</a>
+            <a href="#contact">Reels</a>
+            <a href="#contact">Your Group</a>
+            <a href="#contact">Indox</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="event-details">
+            <img src="../assets/EventListing/MardiGras.jpg" alt="Event Image" class="eventImage">
+            <div class="event-info">
+                <h2 class="eventTitle">Mardi Gras</h2>
+                <p class="eventDescription">Mardi Gras, also known as Fat Tuesday, is a vibrant celebration that takes place before Lent, particularly famous in New Orleans, Louisiana. The festival features lively parades, colorful floats, elaborate costumes, and music, creating a festive atmosphere. Participants often indulge in rich foods, and traditional treats like King Cake are enjoyed. Mardi Gras is marked by a spirit of revelry and community, drawing visitors from around the world to join in the festivities, which often begin weeks before the main event.</p>
+                <h2 class="date">March 4, 2025</h2>
+                <h2 class="location">New Orleans, Louisiana</h2>
+
+            </div>
+        </div>        
+        
+        <div class="sidebar-container">
+            <div class="sidebar">
+                <h2 class="sidebarTitle">Join a Group!</h2>
+                <div class="group-list">
+                    <div>
+                        <span class="groupItem">Group A</span>
+                    <span class="groupItem">1/2</span>
+                    </div>
+                    <div>
+                        <span class="groupItem">Group A</span>
+                    <span class="groupItem">5/10</span>
+                    </div>
+                    <div>
+                        <span class="groupItem">Group A</span>
+                    <span class="groupItem">2/3</span>
+                    </div>
+                    <div>
+                        <span class="groupItem">Group A</span>
+                    <span class="groupItem">5/9</span>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <h2 class="sidebarTitle">Create Your Group</h2>
+                <div class="formField">Name:</div>
+                <div class="formField">Description:</div>
+                <div class="formField">Size Limit:</div>
+                <div class="button-container">
+                    <button class="create-button">Create</button>
+                </div>
+                
+            </div>
+        </div>        
+
+        <section class="post-feed">
+            <h2>Recent Posts At This Event</h2>
+            <div class="grid" id="postGrid">
+                <div class="post">
+                    <a href="postComment.html" style="text-decoration: none; color: inherit;">
+                    <img src="../assets/man.jpg" alt="profilePic">
+                    <h3>Look at them cheese &#129316</h3>
+                    <button class="like-button">
+                        <img src="../assets/LikeButton.png" alt="Like Button">
+                    </button>
+                    <span class="like-count">144</span> 
+                    <img src="../assets/EventListing/MardiGras1.jpg" alt="Post Image" class="PostImage">
+                </a>
+                </div>
+                <div class="post">
+                    <img src="../assets/women.jpg" alt="profilePic">
+                    <button class="like-button">
+                        <img src="../assets/LikeButton.png" alt="Like Button">
+                    </button>
+                    <span class="like-count">90</span> 
+                    <h3>I love cheese Festival wooooo!!!!</h3>
+                    <img src="../assets/EventListing/MardiGras2.jpg" alt="Post Image" class="PostImage">
+                    
+                </div>
+                <div class="post">
+                    <img src="../assets/woman2.jpg" alt="profilePic">
+                    <button class="like-button">
+                        <img src="../assets/LikeButton.png" alt="Like Button">
+                    </button>
+                    <span class="like-count">44</span> 
+                    <h3>I saw him the cheese festival very cool guy!!!!</h3>
+                    <img src="../assets/EventListing/MardiGras3.jpg" alt="Post Image" class="PostImage">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Travel Explorer. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const imageUpload = document.getElementById('imageUpload');
+            const caption = document.getElementById('caption').value;
+            const postGrid = document.getElementById('postGrid');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const post = document.createElement('div');
+                post.className = 'post';
+
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'Post Image';
+
+                const p = document.createElement('p');
+                p.textContent = caption;
+
+                post.appendChild(img);
+                post.appendChild(p);
+                postGrid.prepend(post);
+
+                imageUpload.value = '';
+                document.getElementById('caption').value = '';
+            };
+
+            if (imageUpload.files[0]) {
+                reader.readAsDataURL(imageUpload.files[0]);
+            }
+        });
+    </script>
+</body>
+</html>

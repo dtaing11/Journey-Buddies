@@ -4,7 +4,7 @@
 }
 
 .chatMenu{
-    flex:3.5
+    flex:1.5
 }
 
 .chatMenuInput{
@@ -85,4 +85,53 @@
     font-size: 50px;
     color: aliceblue;
     cursor: default;
+}
+
+/* Main Layout */
+.messengerr {
+    height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    font-family: 'Single Day', sans-serif;
+}
+
+/* Left: Chat Menu */
+.chatMenu {
+    width: 20%; /* Takes up 20% of the page */
+    background-color: #FAEDCE;
+    border-right: 1px solid #FEFAE0;
+    padding: 1em;
+    overflow-y: auto;
+}
+
+/* Middle: Chat Section */
+.chatSection {
+    flex-grow: 1; /* Expands to fill available space */
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFDF2;
+}
+
+.chatMessages {
+    flex-grow: 1;
+    padding: 1em;
+    overflow-y: auto;
+    font-size: 1.5em;
+}
+
+.chatInput {
+    display: flex;
+    padding: 1em;
+    background-color: #FAEDCE;
+    border-top: 1px solid #FEFAE0;
+}
+
+/* Right: Profile Sidebar */
+.profileSidebar {
+    width: 20%; /* Takes up 20% of the page */
+    background-color: #FAEDCE;
+    padding: 1em;
+    border-left: 1px solid #FEFAE0;
+    overflow-y: auto;
 }

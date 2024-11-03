@@ -1,0 +1,48 @@
+.container {
+    max-width: 1200px; /* Set a maximum width */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add padding */
+}
+.container :hover {
+    transform: scale(1.01);
+}
+
+#home {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the flex items */
+    gap: 20px; /* Space between event containers */
+}
+
+.event  {
+    background: #E0E5B6;
+    border: 1px solid ;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 calc(33% - 40px); /* Responsive sizing */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+}
+.event :hover {
+    transform: scale(1.02);
+}
+
+.event img  {
+    width: 500px;
+    height: auto;
+    object-fit: contain;
+    
+}
+
+.event button {
+    background-color: #CCD5AE; /* Base color */
+    color: black; /* Text color */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Padding for spacing */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}

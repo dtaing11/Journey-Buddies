@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map - Journey Buddies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
+        <h1>Journey Buddies</h1>
+       
+        <nav>
+            <a href="index.html">Posts</a>
+            <a href="map.html">Map</a>
+            <a href="#contact">Reels</a>
+            <a href="#contact">Your Group</a>
+            <a href="#contact">Inbox</a>
+        </nav>
+        
+        <div class="nav-sign-out">
+            <a href="#" id="signOutLink" class="sign-out">Sign Out</a>
+        </div>
+    </header>
+
+    <div class="map-container">
+        <div id="map" style="height: 650px;"></div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Travel Explorer. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([0, 0], 3); // Set initial view
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Define icons
+        var foodIcon = L.icon({
+            iconUrl: 'assets/Food.svg',
+            iconSize: [50, 100],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
+
+        var musicIcon = L.icon({
+            iconUrl: 'assets/Music.svg',
+            iconSize: [50, 100],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
+
+        var festivalIcon = L.icon({
+            iconUrl: 'assets/Festival.svg',
+            iconSize: [50, 100],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
+
+        // Array of marker data
+        var markersData = [
+            { coords: [-37.8161, 144.9543], icon: foodIcon, popup: 'Food Festival - Click for details!' },
+            { coords: [-34.9285, 138.6007], icon: musicIcon, popup: 'Music Concert - Click for details!' },
+            { coords: [-33.8651, 151.2099], icon: festivalIcon, popup: 'Cultural Festival - Click for details!' },
+            { coords: [34.5802074, -105.996047], icon: festivalIcon, popup: 'Albuquerque International Balloon Fiesta - Click for details!' },
+            { coords: [41.3828939, 2.177432], icon: festivalIcon, popup: 'Barcelona Street Art Fair - Click for details!', action: 'viewFestival' },
+            { coords: [43.5515198, 7.0134418], icon: festivalIcon, popup: 'Cannes Film Festival - Click for details!' },
+            { coords: [36.7014631, -118.755997], icon: musicIcon, popup: 'Coachella - Click for details!' },
+            { coords: [51.159843, -2.585621], icon: festivalIcon, popup: 'Glastonbury Festival - Click for details!' },
+            { coords: [28.6300538, 77.4218577], icon: festivalIcon, popup: 'Holi Celebration at Gokul - Click for details!' },
+            { coords: [45.4371908, 12.3345898], icon: festivalIcon, popup: 'International Art Biennale - Click for details!' },
+            { coords: [51.0897779, 4.3842969], icon: musicIcon, popup: 'Tomorrow Land - Click for details!', action: 'viewMusic' },
+            { coords: [6.3666147, 2.0853599], icon: festivalIcon, popup: 'Voodoo Festivals and culture - Click for details!' },
+            { coords: [33.5945144, -7.6200284], icon: musicIcon, popup: 'Fes Sacred Music Festival - Click for details!' },
+            { coords: [34.02236, -6.8340222], icon: musicIcon, popup: 'Fes Sacred Music Festival - Click for details!' },
+            { coords: [34.0399646, -5.5626871], icon: festivalIcon, popup: 'Fes Sacred Music Festival - Click for details!' },
+            { coords: [24.091071, 32.897306], icon: festivalIcon, popup: '4 Nights MS Nile Premium Cruise - Click for details!' },
+            { coords: [8.053714, -1.728919], icon: festivalIcon, popup: 'Pilgrimage, Atonement and Homecoming - Click for details!' },
+            { coords: [13.3617562, 103.8590321], icon: festivalIcon, popup: 'Angkor Wat Half Marathon - Click for details!' },
+            { coords: [23.0205969, 113.7457788], icon: festivalIcon, popup: 'International Tea Event - Click for details!' },
+            { coords: [12.9767936, 77.590082], icon: festivalIcon, popup: 'Auto EV Expo - Click for details!' },
+            { coords: [43.588741, -85.310092], icon: festivalIcon, popup: 'Earth: An Immersive Journey - Click for details!' },
+            { coords: [29.9759983, -90.0782127], icon: festivalIcon, popup: 'Mardi Gras - Click for details!', action: 'viewFestival' },
+            { coords: [-33.9288301, 18.4172197], icon: festivalIcon, popup: 'Corona Sunsets Festival World Tour - Click for details!' },
+            { coords: [-41.2887953, 174.7772114], icon: foodIcon, popup: 'Cheese Festival - Click for details!', action: 'viewCheese' },
+            { coords: [-1.2043218, -47.1583944], icon: festivalIcon, popup: 'Movimat - Click for details!' },
+            { coords: [-6.175247,106.8270488], icon: festivalIcon, popup: 'ALLPACK INDONESIA- Click for details!' },
+            { coords: [14.4185637,121.0447216], icon: musicIcon, popup: 'Wanderland Festival 2025- Click for details!' },
+            { coords: [-1.8281651,-80.7529065], icon: musicIcon, popup: ' Trotamundo Festival 2025- Click for details!' },
+            { coords: [24.638916,46.7160104], icon: musicIcon, popup: ' Soundstorm 2024 - Click for details!' },
+            { coords: [28.3060753,75.2879644], icon: musicIcon, popup: 'Magnetic Fields Festival 2024- Click for details!' },
+            { coords: [-18,178], icon: musicIcon, popup: 'Your Paradise Fiji 2025 - Click for details!' },
+           
+
+        ];
+
+        // Loop through markersData to add markers to the map
+        markersData.forEach(function(data) {
+            var marker = L.marker(data.coords, { icon: data.icon }).addTo(map)
+                .bindTooltip(data.popup, { permanent: false, sticky: true });
+
+            // Optional: Add click event for more actions
+            marker.on('click', function() {
+        if (data.action === 'viewCheese') {
+           window.location.href = './EventListing/CheeseEventListing.html'; 
+        } else if (data.action === 'viewMusic') {
+            window.location.href = './EventListing/MusicEventListing.html';
+        }
+        else if(data.action === 'viewFestival')
+        {
+            window.location.href ='./EventListing/FestivalEvenListing.html'
+        }
+            });
+        });
+
+        // Sign Out button functionality (example)
+        document.getElementById('signOutLink').addEventListener('click', function() {
+            // Add sign-out logic here
+            alert('Signed out!'); // Replace with actual sign-out functionality
+        });
+    </script>
+</body>
+</html>
