@@ -3,12 +3,6 @@ const auth = firebase.auth();
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-//const signInSection = document.getElementById('signInSection');
-//const signUpSection = document.getElementById('signUpSection');
-//const whenSignedIn = document.getElementById('whenSignedIn');
-// const whenSignedOut = document.getElementById('whenSignedOut');
-
-// const signOutBtn = document.getElementById('signOutBtn');
 const signInBtn = document.getElementById('signInBtn');
 const signUpBtn = document.getElementById('signUpBtn');
 
@@ -20,7 +14,7 @@ const signUpConfirmPasswordInput = document.getElementById('signUpConfirmPasswor
 const signInEmailInput = document.getElementById('signInEmail');
 const signInPasswordInput = document.getElementById('signInPassword');
 
-//const userDetails = document.getElementById('userDetails');
+const userDetails = document.getElementById('userDetails');
 
 
 // Function to clear input fields
@@ -80,7 +74,7 @@ function handleSignUp(event) {
                     })
                     .then(() => {
                         console.log("User document created successfully.");
-                        showUserDetails(userCredential.user);
+                        window.location.href = '../index.html';
                     })
                     .catch(error => {
                         console.error("Error creating user document:", error);
@@ -103,8 +97,8 @@ function handleSignUp(event) {
 
 //Sign in event handler
 signInBtn.onclick = () => {
-    const emailOrUsername = signInEmailInput.value;
-    const password = signInPasswordInput.value;
+    const emailOrUsername = document.getElementById('signInEmail').value.trim();
+    const password = document.getElementById('signInPassword').value;
 
     // Determine if the input is a username or an email
     let userDocRef;
@@ -132,7 +126,7 @@ signInBtn.onclick = () => {
             .then(userCredential => {
                 console.log("Signed in:", userCredential.user);
                 // Redirect to map.html
-                window.location.href = '../map.html'; // Adjust the path if needed
+                window.location.href = '../index.html'; // Adjust the path if needed
             })
             .catch(error => {
                 console.error("Error signing in:", error);
@@ -143,40 +137,3 @@ signInBtn.onclick = () => {
         alert(error.message);
     });
 };
-
-// // Show sign in section when clicking "Sign in with Email"
-// signInEmailInput.onclick = () => {
-//     clearInputFields();  // Clear fields before showing sign-in
-//     whenSignedOut.hidden = true; // Hide main sign-out section
-//     signInSection.hidden = false; // Show sign-in section
-// };
-
-// // Sign Out event handler
-// signOutBtn.onclick = () => {
-//     auth.signOut().then(() => {
-//         console.log("Signed out");
-//         whenSignedIn.hidden = true;
-//         whenSignedOut.hidden = false; // Show main sign-in section
-//     });
-// };
-
-//Show user details and switch to signed-in view
-function showUserDetails(user) {
-    const userDocRef = db.collection('users').doc(user.uid);
-    userDocRef.get().then(doc => {
-        if (doc.exists) {
-            const userData = doc.data();
-            userDetails.innerHTML = `<h3>Hello ${userData.UserName}!</h3>`;
-        } else {
-            console.log("No user document found.");
-        }
-    }).catch(error => {
-        console.error("Error fetching user document:", error);
-    });
-    whenSignedOut.hidden = true;
-    signInSection.hidden = true;
-    signUpSection.hidden = true;
-    whenSignedIn.hidden = false;
-}
-
-// console.log("Firebase config:", firebaseConfig);

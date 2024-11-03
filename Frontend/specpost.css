@@ -1,0 +1,99 @@
+:root {
+    --primary-color: #FAEDCE;
+    --secondary-color: #ffd700;
+    --background-color: #FEFAE0;
+    --text-color: #333;
+    --SecondaryAccent: #E0E5B6;
+    --PrimaryAccent: #CCD5AE;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container :hover
+{
+    transform: scale(1.02);
+}
+
+
+h3 {
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.event-detail {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: #80bdff;
+    outline: none;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-success {
+    background-color: var(--PrimaryAccent);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #ffd700;
+}
+
+.btn-secondary {
+    background-color: var(--PrimaryAccent);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: var(--PrimaryAccent);
+}
+
+.groups-list {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+.mt-5 {
+    margin-top: 3rem;
+}

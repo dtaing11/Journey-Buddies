@@ -60,7 +60,6 @@ homeBtn.addEventListener('click', () => {
 // });
 auth.onAuthStateChanged(user => {
     if (user) {
-        showUserDetails(user);
         whenSignedIn.hidden = false;
         whenSignedOut.hidden = true; // Hide sign-in section
         

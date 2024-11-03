@@ -31,8 +31,8 @@
         <div class="loginRight">
             <!-- Sign In Form -->
             <div id="signInSection">
-                <form class="loginBox" onsubmit="handleSignIn(event)">
-                    <input placeholder="Email/Username" type="email" required class="loginInput" id="signInEmail">
+                <form class="loginBox">
+                    <input placeholder="Email/Username" required class="loginInput" id="signInEmail">
                     <input placeholder="Password" type="password" required minlength="6" class="loginInput" id="signInPassword">
                     <button class="loginButton" type="submit" id="signInBtn">Log In</button>
                     <span class="loginForgot">Forgot Password?</span>
@@ -115,6 +115,7 @@
                     console.log("User document created successfully.");
                     alert("Account created successfully!");
                     // Optionally redirect or show user details
+                    window.location.href = 'index.html';
                 })
                 .catch(error => {
                     console.error("Error creating user document:", error);
