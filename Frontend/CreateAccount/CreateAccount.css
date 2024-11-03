@@ -64,7 +64,7 @@ html, body {
     outline:none;
 }
 
-.LogInButton{
+.loginButton{
     height: 50px;
     border-radius: 10px;
     border:none;
@@ -74,9 +74,21 @@ html, body {
     font-weight: 500;
     cursor: pointer;
 }
+
+.logInButton{
+    height: 50px;
+    border-radius: 10px;
+    border:none;
+    background-color: #CCD5AE;
+    color: aliceblue;
+    font-size: 30px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
 .loginForgot{
     text-align: center;
-    color: aliceblue;
+    color: rgb(194, 194, 194);
     font-size: 20px;
     cursor: pointer;
 }
