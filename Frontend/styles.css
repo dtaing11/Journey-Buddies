@@ -1,3 +1,29 @@
+/* 4  scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FEFAE0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FAEDCE;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FAEDCE;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #FAEDCE #FEFAE0;
+}
+
+/*end of scrollbarz */
+
 :root {
     --primary-color: #FAEDCE;
     --secondary-color: #ffd700;
@@ -5,13 +31,9 @@
     --text-color: #333;
     --SecondaryAccent: #E0E5B6;
     --PrimaryAccent: #CCD5AE;
-
- 
 }
-
-
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Single Day', Arial, sans-serif; 
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
@@ -28,26 +50,30 @@ header {
 
 
 .logo {
-    width: 100px;
+    width: 300px;
     height: auto;
     margin-right: 10px;
     padding: 5px;
     border-radius: 8px;
 }
-
+h1{
+    font-size: 5em;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-right: 1.65em;
+}
 nav {
     margin-top: 10px; 
     width: 100%; 
     display: end; 
     justify-content: end;
-
 }
-
 nav a {
     margin: 0 15px;
     color: #000000;
     text-decoration: none;
     font-weight: bold;
+    font-size: 3em;
     transition: color 0.3s;
 }
 

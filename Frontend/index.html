@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Explorer</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="index.css"> <!-- Link to external CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -15,12 +17,40 @@
         <a href="#destinations">Posts</a>
         <a href="#tips">Map</a>
         <a href="#contact">Reels</a>
-        <a href="#contact">Your Group</a>
-        <a href="#contact">Indox</a>
+        <a href="#contact">Groups</a>
+        <a href="#contact">Inbox</a>
 
     </nav>
 </header>
+<div class="post-container">
+    <div class="post">
+        <div class="post-image">
+            <img src="assets\events\placeholder-cheese festival.jpg" alt="Cheese Festival Image">
+        </div>
+        <div class="post-content">
+            <div class="post-title">Cheese Festival</div>
+            <div class="post-date">November 3, 2024</div>
+            <div class="post-address">
+                Discover the rich flavors of Switzerland at the See Quai Cheese Festival! Taste artisanal cheeses, meet local makers, and enjoy lakeside festivities in Rapperswil-Jona...
+            </div>
+        </div>
+        <div class="post-interactions">
+            <div class="post-rating">
+                <span id="thumbs-up-count">1111110</span> <!-- BACKEND:number of thumbs up event recieved from users -->
+                <button onclick="submitRating()"><!-- BACKEND:should increment(or decrement if unliked) thumbs-up-count-->
+                    <img src="assets/LikeButton.png" alt="Like Button"/>
+                </button>
+            </div>
+            <div class="post-link">
+                <a href="#event_page">Click here to learn more...</a> <!--event sepcific page-->
+            </div>
+        </div>
+    </div>
 
+    <!-- Repeat the "post" div as needed for next 9 events -->
+    
+
+</div>
 
 <footer>
     <p>&copy; 2024 Travel Explorer. All rights reserved.</p>
