@@ -60,9 +60,6 @@ homeBtn.addEventListener('click', () => {
 // });
 auth.onAuthStateChanged(user => {
     if (user) {
-        whenSignedIn.hidden = false;
-        whenSignedOut.hidden = true; // Hide sign-in section
-        
         const currentUserId = user.uid;
 
         // Get the user's document from Firestore
@@ -87,11 +84,7 @@ auth.onAuthStateChanged(user => {
             .catch((error) => {
                 console.error('Error getting user document:', error);
             });
-
-    } else {
-        whenSignedIn.hidden = true;
-        whenSignedOut.hidden = false; // Show main sign-in section
-    }
+        }
 });
 
 function listenForPosts() {

@@ -13,15 +13,14 @@
 </head>
 <body>
     <header>
-        <img src = "../assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
+        <img src="../assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
         <h1>Journey Buddies</h1>
         <nav>
-            <a href="#destinations">Posts</a>
-            <a href="#tips">Map</a>
-            <a href="#contact">Reels</a>
-            <a href="#contact">Your Group</a>
-            <a href="#contact">Inbox</a>
-    
+            <a id="homeBtn" href="../index.html">Posts</a>
+            <a href="../map.html">Map</a>
+            <a href="contact">Reels</a>
+            <a id ="groupsBtn" href="../Groups/Groups.html">Groups</a>
+            <a href="../inbox.html">Inbox</a>
         </nav>
     </header>
 
@@ -38,43 +37,22 @@
                     <div class="conversation-item">
                         <p>Empty</p>
                     </div>
-                    <div class="conversation-item">
-                        <p>Empty</p>
-                    </div>
-                    <div class="conversation-item">
-                        <p>Empty</p>
-                    </div>
-                    <div class="conversation-item">
-                        <p>Empty</p>
-                    </div>
-                    <div class="conversation-item">
-                        <p>Empty</p>
-                    </div>
-                    <div class="conversation-item">
-                        <p>Empty</p>
-                    </div>
-                    <div class="conversation-item">
-                        <p>Empty</p>
-                    </div>
+                    <!-- More groups -->
                 </div>
             </div>
         </div>
         <div class="chatSection">
-            <div class="chatMessages">
-                <!-- Chat messages go here -->
+            <div class="chatMessages" id="chatMessages">
                 <div class="chatMessage">
                     <p><strong>Alex Traveler:</strong> Excited for the Cheese Festival! Anyone else going?</p>
-                </div>
-                <div class="chatMessage">
-                    <p><strong>You:</strong> Yes! I’ll be there too. Looking forward to it!</p>
                 </div>
                 <!-- More chat messages -->
             </div>
             
             <!-- Chat Input -->
             <div class="chatInput">
-                <input type="text" placeholder="Type a message..." />
-                <button>Send</button>
+                <input type="text" id="messageInput" placeholder="Type a message..." />
+                <button id="sendButton">Send</button>
             </div>
         </div>
         <div class="chatOnline">
@@ -86,20 +64,53 @@
         <div class="profileSidebar">
             <h2>Group Members</h2>
             <div class="profile">
-                <img src="assets/user-placeholder.png" alt="User Avatar">
-            <p>Alex Traveler</p>
+                <img src="/Frontend/assets/woman2.jpg" alt="User Avatar">
+                <p>duy</p>
+            </div>
+            <div class="profile">
+                <img src="/Frontend/assets/man.jpg" alt="User Avatar">
+                <p>Alex Traveler</p>
+            </div>
+            <!-- Add more profiles as needed -->
         </div>
-        <div class="profile">
-            <img src="assets/user-placeholder.png" alt="User Avatar">
-            <p>Jamie Explorer</p>
-        </div>
-        <div class="profile">
-            <img src="assets/user-placeholder.png" alt="User Avatar">
-            <p>Taylor Adventurer</p>
-        </div>
-        <!-- Add more profiles as needed -->
     </div>
-</div>
-</div>
+
+    <script>
+        // Get references to input and button
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Function to add a new message to the chat
+        function addMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                // Create a new message element
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('chatMessage');
+                messageElement.innerHTML = `<p><strong>You:</strong> ${messageText}</p>`;
+                
+                // Append the new message to chat messages
+                chatMessages.appendChild(messageElement);
+
+                // Clear the input
+                messageInput.value = '';
+                
+                // Scroll to the bottom of the chat
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        // Event listener for the send button
+        sendButton.addEventListener('click', addMessage);
+
+        // Optional: Allow pressing Enter to send a message
+        messageInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addMessage();
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
 </body>
 </html>

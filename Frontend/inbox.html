@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="inbox.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification:</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+    <script src="inbox.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h3>Welcome to Notifications</h3>
+        <span class="notification-time">Today</span>
+        <button id="groupsButton" class="btn btn-primary">
+            <div class="container">
+                <div class="notification-box">
+                    <span class="notification-message">Incoming message: a person joined your group!</span>
+                </div>
+            </div>
+        </button>
+    </div>
+
+    <script>
+        document.getElementById('groupsButton').addEventListener('click', function() {
+            window.location.href = '../Groups/Groups.html';
+        });
+    </script>
+</body>
+</html>

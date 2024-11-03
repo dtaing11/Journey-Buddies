@@ -121,17 +121,73 @@
 }
 
 .chatInput {
-    display: flex;
-    padding: 1em;
-    background-color: #FAEDCE;
-    border-top: 1px solid #FEFAE0;
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Adjust this to your desired width */
+}
+
+.chatInput input {
+    flex: 1; /* Allow the input to grow and fill available space */
+    padding: 10px; /* Add some padding for better appearance */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 4px; /* Rounded corners */
+    margin-right: 10px; /* Space between input and button */
+}
+
+.chatInput button {
+    padding: 10px 15px; /* Padding for the button */
+    background-color:#CCD5AE; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.chatInput button:hover {
+    background-color: #CCD5AE; /* Darker shade on hover */
 }
 
 /* Right: Profile Sidebar */
 .profileSidebar {
-    width: 20%; /* Takes up 20% of the page */
-    background-color: #FAEDCE;
-    padding: 1em;
-    border-left: 1px solid #FEFAE0;
-    overflow-y: auto;
+    width: 250px; /* Adjust width as needed */
+    padding: 15px;
+    background-color: #CCD5AE; /* Light background color */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
+
+.profileSidebar h2 {
+    font-size: 20px; /* Heading size */
+    margin-bottom: 15px; /* Space below heading */
+    text-align: center; /* Center align the heading */
+    color: #333; /* Darker text color */
+}
+
+.profile {
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center align items vertically */
+    margin-bottom: 10px; /* Space between profiles */
+    padding: 10px; /* Padding around each profile */
+    background-color: #FFFDF2; /* White background for profiles */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.profile:hover {
+    background-color: #eaeaea; /* Change background on hover */
+}
+
+.profile img {
+    width: 40px; /* Set a fixed width for images */
+    height: 40px; /* Set a fixed height for images */
+    border-radius: 50%; /* Circular profile pictures */
+    margin-right: 10px; /* Space between image and text */
+}
+
+.profile p {
+    font-size: 16px; /* Font size for member names */
+    color: #555; /* Slightly lighter text color */
+    margin: 0; /* Remove default margin */
+}
+

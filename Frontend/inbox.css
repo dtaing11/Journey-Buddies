@@ -1,0 +1,52 @@
+.container {
+    max-width: 1500px; /* Increased width */
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 30px; /* Increased padding */
+}
+
+h3 {
+    margin: 0 0 15px; /* Increased margin */
+    color: #333;
+    font-size: 24px; /* Increased font size */
+}
+
+.notification-time {
+    font-size: 1.1em; /* Increased font size */
+    color: #888;
+    margin-bottom: 10px; /* Added margin for spacing */
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #cdde9c;
+    color: white;
+    padding: 5px; /* Increased padding */
+    font-size: 18px; /* Increased font size */
+    border-radius: 8px; /* More rounded corners */
+    cursor: pointer;
+    text-align: left; /* Align text to the left */
+    position: relative;
+    margin-top: 20px; /* Increased margin */
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #bfd390; /* Darken button on hover */
+}
+
+.notification-box {
+    padding: 5px; /* Increased padding */
+    border-radius: 0px; /* More rounded corners */
+    background-color: #e9ecef; /* Light grey background for notification */
+    border-left: 6px solid #bfce83; /* Slightly thicker blue left border */
+}
+
+.notification-message {
+    font-size: 16px; /* Increased font size */
+    color: #333;
+}
