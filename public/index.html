@@ -28,6 +28,28 @@
       object-fit: cover;
     }
   </style>
+  <style>
+    #notificationList {
+        max-height: 400px;
+        overflow-y: auto;
+        margin-top: 20px;
+    }
+
+    .notification-item {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .notification-item.unread {
+        background-color: #f0f8ff;
+    }
+
+    .notification-time {
+        font-size: 0.8em;
+        color: #555;
+    }
+  </style>
+  
 </head>
 <body>
   <h1>Journey Buddies</h1>
@@ -76,19 +98,31 @@
     </div>
     <div id="home"></div>    
     <div id="map" hidden> 
-      <h2>2</h2>
+      <h2>Fully Front-ended</h2>
     </div>
     <div id="posts" hidden> 
-      <h2>3</h2>
+      <h2>Not Available for Backend</h2>
     </div>    
     <div id="reels" hidden> 
       <h2>Not Available For This Prototype</h2>
     </div>
-    <div id="groups" hidden> 
-      <h2>5</h2>
+    <div id="groups" class="list-group" hidden>
+      <!-- Chat Interface -->
+      <div id="chatInterface">
+        <h3 id="chatGroupName"></h3>
+        <div id="chatMessages" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;"></div>
+        <form id="chatForm">
+          <input type="text" id="chatInput" class="form-control" placeholder="Type your message..." required />
+          <button type="submit" class="btn btn-primary mt-2">Send</button>
+        </form>
+        <button id="closeChatBtn" class="btn btn-secondary mt-2">Close Chat</button>
+      </div>
     </div>    
     <div id="inbox" hidden> 
-      <h2>6</h2>
+      <h2>Inbox</h2>
+      <ul id="notificationList" class="list-inbox">
+        <!-- Notifications will be appended here -->
+      </ul>
     </div>
   </section>
 </body>

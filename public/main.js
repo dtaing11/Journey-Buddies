@@ -101,7 +101,21 @@ signUpBtn.onclick = () => {
                     })
                     .then(() => {
                         console.log("User document created successfully.");
-                        showUserDetails(userCredential.user);
+
+                        // Create a welcome notification
+                        db.collection('users').doc(userCredential.user.uid)
+                          .collection('notifications').add({
+                              message: `Welcome to Journey Buddies, ${username}!`,
+                              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                              read: false
+                          })
+                          .then(() => {
+                              console.log("Welcome notification created.");
+                              showUserDetails(userCredential.user);
+                          })
+                          .catch(error => {
+                              console.error("Error creating welcome notification:", error);
+                          });
                     })
                     .catch(error => {
                         console.error("Error creating user document:", error);
@@ -119,6 +133,7 @@ signUpBtn.onclick = () => {
         alert("An error occurred while checking username availability. Please try again later.");
     });
 };
+
 
 
 //Sign in event handler
@@ -207,7 +222,6 @@ console.log("Firebase config:", firebaseConfig);
 
 
 
-
 //-----------------------------------------------------
 
 
@@ -232,7 +246,6 @@ const mapDiv = document.getElementById('map');
 const postsDiv = document.getElementById('posts');
 const reelsDiv = document.getElementById('reels');
 const groupsDiv = document.getElementById('groups');
-const inboxDiv = document.getElementById('inbox');
 
 // Function to hide all divs
 function hideAllDivs() {
@@ -412,3 +425,315 @@ function fetchEvents() {
 
 document.addEventListener('DOMContentLoaded', listenForPosts);
 document.addEventListener('DOMContentLoaded', fetchEvents);
+
+
+
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------
+
+
+
+
+
+
+
+
+
+
+// Get references to the new HTML elements
+const groupsList = document.getElementById('groups');
+const chatInterface = document.getElementById('chatInterface');
+const chatGroupName = document.getElementById('chatGroupName');
+const chatMessages = document.getElementById('chatMessages');
+const chatForm = document.getElementById('chatForm');
+const chatInput = document.getElementById('chatInput');
+const closeChatBtn = document.getElementById('closeChatBtn');
+
+// Function to fetch all groups using a collection group query
+function fetchAllGroups() {
+    // Clear any existing groups
+    groupsList.innerHTML = '';
+
+    db.collectionGroup('groups').get()
+        .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+                groupsList.innerHTML = '<p>No groups found.</p>';
+                return;
+            }
+
+            querySnapshot.forEach((doc) => {
+                const groupData = doc.data();
+                const groupId = doc.id;
+                const eventId = doc.ref.parent.parent.id; // Assuming 'groups' is a subcollection under 'events'
+
+                // Create a group item as a button for better semantics
+                const groupItem = document.createElement('button');
+                groupItem.type = 'button';
+                groupItem.classList.add('list-group-item', 'list-group-item-action', 'btn', 'btn-link');
+                groupItem.textContent = groupData.groupName;
+                groupItem.dataset.groupId = groupId;
+                groupItem.dataset.eventId = eventId;
+
+                // Add click event to open chat
+                groupItem.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default anchor behavior
+                    openChat(eventId, groupId, groupData.groupName);
+                });
+
+                groupsList.appendChild(groupItem);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching groups:', error);
+            groupsList.innerHTML = '<p>Error fetching groups. Please try again later.</p>';
+        });
+}
+
+
+// Function to open chat for a specific group
+function openChat(eventId, groupId, groupName) {
+    // Show chat interface
+    chatInterface.hidden = false;
+    chatGroupName.textContent = `Chat - ${groupName}`;
+
+    // Clear previous messages
+    chatMessages.innerHTML = '';
+
+    // Reference to the messages subcollection
+    const messagesRef = db.collection('events').doc(eventId)
+                            .collection('groups').doc(groupId)
+                            .collection('messages');
+
+    // Listen for real-time updates to messages
+    messagesRef.orderBy('createdAt').onSnapshot((snapshot) => {
+        chatMessages.innerHTML = ''; // Clear existing messages
+
+        snapshot.forEach((doc) => {
+            const messageData = doc.data();
+            const messageElement = document.createElement('div');
+            messageElement.innerHTML = `<strong>${messageData.senderName}:</strong> ${messageData.text}`;
+            chatMessages.appendChild(messageElement);
+        });
+
+        // Scroll to the bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, (error) => {
+        console.error('Error fetching messages:', error);
+    });
+
+    // Handle chat form submission
+    chatForm.onsubmit = (e) => {
+        e.preventDefault();
+        const messageText = chatInput.value.trim();
+        if (messageText === '') return;
+
+        const user = firebase.auth().currentUser;
+        if (!user) {
+            alert('You must be signed in to send messages.');
+            return;
+        }
+
+        // Get the user's display name
+        const userDocRef = db.collection('users').doc(user.uid);
+        userDocRef.get().then((doc) => {
+            const userData = doc.data();
+            const senderName = userData.UserName || 'Anonymous';
+
+            // Add message to Firestore
+            messagesRef.add({
+                text: messageText,
+                senderId: user.uid,
+                senderName: senderName,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                chatInput.value = '';
+            })
+            .catch((error) => {
+                console.error('Error sending message:', error);
+            });
+        }).catch((error) => {
+            console.error('Error fetching user data:', error);
+        });
+    };
+}
+
+// Handle closing the chat
+closeChatBtn.addEventListener('click', () => {
+    chatInterface.hidden = true;
+    chatGroupName.textContent = '';
+    chatMessages.innerHTML = '';
+    chatForm.onsubmit = null; // Remove the submit handler
+});
+
+// Update the event listener for the Groups button to fetch groups when clicked
+groupsBtn.addEventListener('click', () => {
+    hideAllDivs();
+    groupsDiv.hidden = false;
+    fetchAllGroups();
+});
+
+
+
+
+
+//---------------------------------------------------
+
+
+
+
+
+
+
+
+
+// Function to join a group
+function joinGroup(eventId, groupId, groupName) {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        alert('You must be signed in to join groups.');
+        return;
+    }
+
+    const userDocRef = db.collection('users').doc(user.uid);
+    const groupDocRef = db.collection('events').doc(eventId)
+                             .collection('groups').doc(groupId);
+
+    // Add user to the group's members array
+    groupDocRef.update({
+        members: firebase.firestore.FieldValue.arrayUnion(user.uid)
+    })
+    .then(() => {
+        console.log(`User ${user.uid} joined group ${groupId}`);
+
+        // Create a notification for the user
+        userDocRef.collection('notifications').add({
+            message: `You have joined the group "${groupName}".`,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            read: false
+        })
+        .then(() => {
+            console.log("Group join notification created for user.");
+        })
+        .catch(error => {
+            console.error("Error creating group join notification for user:", error);
+        });
+
+        // Notify existing group members
+        groupDocRef.get().then(doc => {
+            if (doc.exists) {
+                const groupData = doc.data();
+                const memberIds = groupData.members || [];
+
+                // Exclude the current user from notifications
+                const otherMembers = memberIds.filter(id => id !== user.uid);
+
+                otherMembers.forEach(memberId => {
+                    db.collection('users').doc(memberId)
+                      .collection('notifications').add({
+                          message: `${groupData.groupName} has a new member: ${user.displayName || user.email}.`,
+                          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                          read: false
+                      })
+                      .then(() => {
+                          console.log(`Notification sent to user ${memberId}`);
+                      })
+                      .catch(error => {
+                          console.error(`Error sending notification to user ${memberId}:`, error);
+                      });
+                });
+            } else {
+                console.error("Group document does not exist.");
+            }
+        }).catch(error => {
+            console.error("Error fetching group data:", error);
+        });
+    })
+    .catch(error => {
+        console.error("Error joining group:", error);
+        alert("An error occurred while joining the group. Please try again.");
+    });
+}
+
+// References to Inbox elements
+const inboxDiv = document.getElementById('inbox');
+const notificationList = document.getElementById('notificationList');
+
+// Function to fetch and display notifications
+function fetchNotifications() {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        console.log("No user is signed in.");
+        return;
+    }
+
+    const notificationsRef = db.collection('users').doc(user.uid)
+                              .collection('notifications').orderBy('timestamp', 'desc');
+
+    // Listen for real-time updates
+    notificationsRef.onSnapshot(snapshot => {
+        notificationList.innerHTML = ''; // Clear existing notifications
+
+        if (snapshot.empty) {
+            notificationList.innerHTML = '<li class="list-inbox-item">No notifications.</li>';
+            return;
+        }
+
+        snapshot.forEach(doc => {
+            const notification = doc.data();
+            const notificationItem = document.createElement('li');
+            notificationItem.classList.add('list-inbox-item', 'notification-item');
+            if (!notification.read) {
+                notificationItem.classList.add('unread');
+            }
+
+            // Format the timestamp
+            let timeString = '';
+            if (notification.timestamp) {
+                const date = notification.timestamp.toDate();
+                timeString = date.toLocaleString();
+            } else {
+                timeString = 'No timestamp';
+            }
+
+            notificationItem.innerHTML = `
+                <p>${notification.message}</p>
+                <small class="notification-time">${timeString}</small>
+            `;
+
+            // Mark as read when clicked
+            notificationItem.onclick = () => {
+                if (!notification.read) {
+                    doc.ref.update({ read: true })
+                        .then(() => {
+                            notificationItem.classList.remove('unread');
+                        })
+                        .catch(error => {
+                            console.error("Error marking notification as read:", error);
+                        });
+                }
+            };
+
+            notificationList.appendChild(notificationItem);
+        });
+    }, error => {
+        console.error("Error fetching notifications:", error);
+        notificationList.innerHTML = '<li class="list-inbox-item">Error loading notifications.</li>';
+    });
+}
+
+// Fetch notifications when the Inbox is shown
+inboxBtn.addEventListener('click', () => {
+    hideAllDivs();
+    inboxDiv.hidden = false;
+    fetchNotifications();
+});

@@ -151,7 +151,7 @@ function fetchEventDetails() {
 
       // Fetch and Display Groups
       fetchAndDisplayGroups();
-    });
+   });
 }
 
 // Function to Fetch and Display Groups
@@ -257,11 +257,11 @@ function displayGroup(groupData, userIdToUsername = {}) {
   // Check if the current user is a member of the group
   const isMember = userIds.includes(currentUserId);
 
-  // Determine if the current user is at index 1
+  // Determine if the current user is at index 1 (group leader)
   let isDisbandAllowed = false;
   if (isMember) {
     const userIndex = userIds.indexOf(currentUserId);
-    if (userIndex === 1) { // Zero-based index; index 1 is the second member
+    if (userIndex === 0) { // Zero-based index; index 1 is the second member
       isDisbandAllowed = true;
     }
   }
@@ -472,6 +472,14 @@ function handleDisbandGroup(groupId) {
         throw new Error('Group does not exist.');
       }
 
+      const groupData = doc.data();
+      const userIds = groupData.userIds || [];
+
+      // Verify that the current user is indeed the leader
+      if (userIds[0] !== currentUserId) {
+        throw new Error('Only the group leader can disband the group.');
+      }
+
       // Delete the group document
       transaction.delete(groupRef);
 
@@ -492,79 +500,80 @@ function handleDisbandGroup(groupId) {
   });
 }
 
-// Handle Create Group Form Submission
+// Function to Handle Creating a Group
 function handleCreateGroup(event) {
-  event.preventDefault(); // Prevent default form submission
-
-  // Get input values
-  const groupName = document.getElementById('groupName').value.trim();
-  const groupDescription = document.getElementById('groupDescription').value.trim();
-  const maxPeople = parseInt(document.getElementById('maxPeople').value.trim());
-
-  // Basic validation
-  if (!groupName || !groupDescription || isNaN(maxPeople) || maxPeople < 2 || maxPeople > 16) {
-    formFeedback.innerHTML = '<div class="alert alert-danger">Please provide valid group details. Max People should be between 2 and 16.</div>';
-    return;
-  }
-
-  // Get the current user
-  const user = firebase.auth().currentUser;
-
-  if (!user) {
-    formFeedback.innerHTML = '<div class="alert alert-warning">You must be logged in to create a group.</div>';
-    return;
-  }
-
-  const userId = user.uid;
-
-  // Prepare group data
-  const groupData = {
-    groupName: groupName,
-    description: groupDescription,
-    maxPeople: maxPeople,
-    userIds: [userId], // Initialize with the current user's ID
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  };
-
-  // Disable the Create Group button to prevent multiple submissions
-  const createButton = createGroupForm.querySelector('button[type="submit"]');
-  createButton.disabled = true;
-  createButton.textContent = 'Creating...';
-
-  // Use a transaction to check for duplicate group names and create the group atomically
-  db.runTransaction((transaction) => {
-    const groupsQuery = eventDocRef.collection('groups').where('groupName', '==', groupName).get();
-    return transaction.get(groupsQuery).then((querySnapshot) => {
-      if (!querySnapshot.empty) {
-        throw new Error('A group with this name already exists.');
-      }
-      const newGroupRef = eventDocRef.collection('groups').doc();
-      transaction.set(newGroupRef, groupData);
-      // Optionally, update the 'group_ID' array in the event document with the new group ID
-      // transaction.update(eventDocRef, {
-      //   group_ID: firebase.firestore.FieldValue.arrayUnion(newGroupRef.id)
-      // });
+    event.preventDefault(); // Prevent default form submission
+  
+    // Get input values
+    const groupName = document.getElementById('groupName').value.trim();
+    const groupDescription = document.getElementById('groupDescription').value.trim();
+    const maxPeople = parseInt(document.getElementById('maxPeople').value.trim());
+  
+    // Basic validation
+    if (!groupName || !groupDescription || isNaN(maxPeople) || maxPeople < 2 || maxPeople > 16) {
+      formFeedback.innerHTML = '<div class="alert alert-danger">Please provide valid group details. Max People should be between 2 and 16.</div>';
+      return;
+    }
+  
+    // Get the current user
+    const user = firebase.auth().currentUser;
+  
+    if (!user) {
+      formFeedback.innerHTML = '<div class="alert alert-warning">You must be logged in to create a group.</div>';
+      return;
+    }
+  
+    const userId = user.uid;
+  
+    // Prepare group data
+    const groupData = {
+      groupName: groupName,
+      description: groupDescription,
+      maxPeople: maxPeople,
+      userIds: [userId], // Initialize with the current user's ID
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+  
+    // Disable the Create Group button to prevent multiple submissions
+    const createButton = createGroupForm.querySelector('button[type="submit"]');
+    createButton.disabled = true;
+    createButton.textContent = 'Creating...';
+  
+    // Reference to the group document using groupName as the ID to enforce uniqueness
+    const groupRef = eventDocRef.collection('groups').doc(groupName);
+  
+    // Run a transaction to ensure the group does not already exist
+    db.runTransaction((transaction) => {
+      return transaction.get(groupRef).then((doc) => {
+        if (doc.exists) {
+          throw new Error('A group with this name already exists.');
+        }
+        transaction.set(groupRef, groupData);
+        // Optionally, update the 'group_ID' array in the event document with the new group ID
+        // transaction.update(eventDocRef, {
+        //   group_ID: firebase.firestore.FieldValue.arrayUnion(groupRef.id)
+        // });
+      });
+    })
+    .then(() => {
+      // Provide success feedback
+      formFeedback.innerHTML = '<div class="alert alert-success">Group created successfully!</div>';
+      // Reset the form
+      createGroupForm.reset();
+      // Refresh the groups list to include the new group
+      fetchAndDisplayGroups();
+    })
+    .catch((error) => {
+      console.error('Error creating group:', error);
+      // Provide error feedback
+      formFeedback.innerHTML = `<div class="alert alert-danger">${error.message || 'Error creating group. Please try again later.'}</div>`;
+    })
+    .finally(() => {
+      // Re-enable the Create Group button
+      createButton.disabled = false;
+      createButton.textContent = 'Create A Group!';
     });
-  })
-  .then(() => {
-    // Provide success feedback
-    formFeedback.innerHTML = '<div class="alert alert-success">Group created successfully!</div>';
-    // Reset the form
-    createGroupForm.reset();
-    // Refresh the groups list to include the new group
-    fetchAndDisplayGroups();
-  })
-  .catch((error) => {
-    console.error('Error creating group:', error);
-    // Provide error feedback
-    formFeedback.innerHTML = `<div class="alert alert-danger">${error.message || 'Error creating group. Please try again later.'}</div>`;
-  })
-  .finally(() => {
-    // Re-enable the Create Group button
-    createButton.disabled = false;
-    createButton.textContent = 'Create A Group!';
-  });
-}
+  }  
 
 // Attach Event Listener to the Form
 createGroupForm.addEventListener('submit', handleCreateGroup);
