@@ -1,97 +1,56 @@
-/*index*/
-
-.post-container{
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    margin-top: 4em;
-    margin-bottom: 4em;
-}
-
 .post {
     display: flex;
-    align-items: center;
-    background-color:#FAEDCE;
+    align-items: flex-start; /* Align at the top */
+    background-color: #FAEDCE;
     border: 1px solid #FEFAE0;
     padding: 1em;
-    height:300px;
+    height: auto; /* Allow height to adjust based on content */
     border-radius: 8px;
+    flex-wrap: wrap; /* Allow items to wrap if necessary */
 }
 
 .post-image img {
-    max-width: 480px; 
+    max-width: 100%; 
     max-height: 270px; 
     width: auto;
     height: auto; 
     object-fit: contain; 
-    flex-grow: 1;
-    margin-right: 2em;
-    margin-left: 7em;
+    margin-right: 1em; /* Adjust as needed */
 }
 
 .post-content {
-     flex-grow: 1;
-    width: 10em;
-    max-width: 100%; /* Ensure it doesn’t exceed the parent’s width */
-    max-height: 100%; /* Ensure it doesn’t exceed the parent’s width */
-    margin-left: 12em;
-    box-sizing: border-box; /* Include padding and border in width calculations */
+    flex-grow: 1;
+    max-width: calc(100% - 500px); /* Ensure it fits within available space */
+    margin-left: 1em;
+    overflow: hidden; /* Control overflow */
 }
 
 .post-title {
-    font-size: 4em;
-    font-weight: bold;
-    color: #000000;
+    font-size: 2.5em; /* Adjusted size */
+}
+.post-date {
+    font-size: 2em; /* Adjusted size */
+}
+.post-address {
+    font-size: 1.5em; /* Adjusted size */
 }
 
-.post-date{
-    font-size: 3.5em;
-    color: #232323;
-    margin: 0.3em 0
-}
-.post-address{
-    font-size: 2.5em;
-    color: #232323;
-    margin-top: 1em;
-    margin-bottom: 0.25em;
-    max-width: 100%; 
-    max-height: 100%; 
-}
-.post-interactions{
-    display: flex;
-    flex-direction: column; /* Stack children vertically */
-    gap: 1em; 
-}
-.post-link {
-    font-size: 2.5em;
-    color: #232323;
-    margin-left: 2em;
-    margin-top: 1em;
-}
-.post-link a {
-    text-decoration: underline;
-    color: #0066cc;
-}
 .post-rating {
     display: flex;
     align-items: center;
     gap: 0.3em;
     margin-bottom: 1em;
 }
-.post-rating button {
-    background: transparent; /* Optional: Make background transparent */
-    border: none; /* Remove button border */
-    cursor: pointer; /* Change cursor on hover */
-}
+
 .post-rating img {
-    width: 10em; /* Adjust size as needed */
-    height: auto;
+    width: 50px; /* Change this value to your desired size */
+    height: auto; /* Keep the aspect ratio */
 }
+
 #thumbs-up-count {
     font-size: 2.5em;
     color: #000000;
     margin-top: 1.25em;
     margin-right: 1em;
-    margin-left: 2em;
 }
 
