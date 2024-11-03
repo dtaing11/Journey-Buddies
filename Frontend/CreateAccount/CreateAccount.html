@@ -11,7 +11,7 @@
     <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
-    <script src="/main.js" defer></script>
+    <script src="/CreateAccount.js" defer></script>
     <style>
         .hidden {
             display: none;
@@ -49,7 +49,7 @@
                     <input type="email" id="signUpEmail" placeholder="Email" required class="loginInput"/>
                     <input type="password" id="signUpPassword" placeholder="Password" required class="loginInput" />
                     <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password" required class="loginInput"/>
-                    <button id="signUpBtn" class="LogInButton">Create Account</button>
+                    <button id="signUpBtn" class="logInButton">Create Account</button>
                     <button class="loginRegisterButton" type="button" onclick="toggleForms()">
                         Log Into Your Account
                     </button>
@@ -68,7 +68,7 @@
         signInSection.classList.toggle('hidden');
         signUpSection.classList.toggle('hidden');
     }
-
+    
     function handleSignUp(event) {
     event.preventDefault(); // Prevent default form submission
 
@@ -127,7 +127,6 @@
         alert("An error occurred while checking username availability. Please try again later.");
     });
 }
-
 </script>
 
 </body>

@@ -37,20 +37,20 @@
             <div class="sidebar">
                 <h2 class="sidebarTitle">Join a Group!</h2>
                 <div class="group-list">
-                    <div>
+                    <div class="group">
                         <span class="groupItem">Group A</span>
                     <span class="groupItem">1/2</span>
                     </div>
-                    <div>
-                        <span class="groupItem">Group A</span>
-                    <span class="groupItem">5/10</span>
+                    <div class="group">
+                        <span class="groupItem",href="groups.html">Group B</span>
+                    <span class="groupItem">1/10</span>
                     </div>
-                    <div>
-                        <span class="groupItem">Group A</span>
+                    <div class="group">
+                        <span class="groupItem">Group C</span>
                     <span class="groupItem">2/3</span>
                     </div>
-                    <div>
-                        <span class="groupItem">Group A</span>
+                    <div class="group">
+                        <span class="groupItem">Group D</span>
                     <span class="groupItem">5/9</span>
                     </div>
 
@@ -59,12 +59,29 @@
             
             <div class="sidebar">
                 <h2 class="sidebarTitle">Create Your Group</h2>
-                <div class="formField">Name:</div>
-                <div class="formField">Description:</div>
-                <div class="formField">Size Limit:</div>
+                <div class="formField">
+                    <label for="groupName">Name:</label>
+                    <input type="text" id="groupName" name="groupName" required>
+                </div>
+                <div class="formField">
+                    <label for="groupDescription">Description:</label>
+                    <textarea id="groupDescription" name="groupDescription" required></textarea>
+                </div>
+                <div class="formField">
+                    <label for="groupSizeLimit">Size Limit:</label>
+                    <select id="groupSizeLimit" name="groupSizeLimit" required>
+                        <option value="" disabled selected>Select size limit</option>
+                        <script>
+                            for (let i = 2; i <= 16; i++) {
+                                document.write(`<option value="${i}">${i}</option>`);
+                            }
+                        </script>
+                    </select>
+                </div>
                 <div class="button-container">
                     <button class="create-button">Create</button>
                 </div>
+            </div>
                 
             </div>
         </div>        

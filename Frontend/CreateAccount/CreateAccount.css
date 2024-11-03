@@ -74,7 +74,6 @@ html, body {
     font-weight: 500;
     cursor: pointer;
 }
-
 .loginForgot{
     text-align: center;
     color: aliceblue;
@@ -83,7 +82,6 @@ html, body {
 }
 
 .loginRegisterButton{
-    width: 60%;
     align-self: center;
     height: 50px;
     border-radius: 10px;
