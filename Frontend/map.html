@@ -17,6 +17,7 @@
     <header>
         <img src="assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
         <h1>Journey Buddies</h1>
+       
         <nav>
             <a href="#destinations">Posts</a>
             <a href="map.html">Map</a>
@@ -24,6 +25,11 @@
             <a href="#contact">Your Group</a>
             <a href="#contact">Inbox</a>
         </nav>
+        
+        <div class="nav-sign-out">
+            <a href="#" id="signOutLink" class="sign-out">Sign Out</a>
+        </div>
+
     </header>
 
     <div class="map-container">
@@ -35,6 +41,7 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
+        // Initialize the map
         var map = L.map('map').setView([0, 0], 3); // Set initial view
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -80,6 +87,12 @@
             marker.on('click', function() {
                 window.location.href = 'post.html'; 
              });
+        });
+
+        // Sign Out button functionality (example)
+        document.getElementById('signOutBtn').addEventListener('click', function() {
+            // Add sign-out logic here
+            alert('Signed out!'); // Replace with actual sign-out functionality
         });
     </script>
 </body>

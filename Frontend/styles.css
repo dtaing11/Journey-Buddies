@@ -16,6 +16,10 @@ body {
     color: #333;
 }
 
+.nav-sign-out {
+    margin-left: auto; /* Pushes the sign-out button to the right */
+}
+
 /* 4  scrollbars */
 ::-webkit-scrollbar {
     width: 8px;
