@@ -1,0 +1,102 @@
+body {
+    font-family: 'Single Day', sans-serif;
+    background-color: #FAEDCE;
+    color: #232323;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    background-color: #FEFAE0;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    margin-right: 1em;
+}
+
+h1 {
+    font-size: 3em;
+    color: #000000;
+}
+
+.inbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    margin: 2em auto;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.message {
+    background-color: #FEFAE0;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+a{
+    font-size: 1.25em;
+}
+p{
+    font-size: 1em;
+}
+.sender-info {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.sender-name {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #000000;
+}
+
+.message-date {
+    font-size: 1.5em;
+    color: #666666;
+}
+
+.message-content {
+    font-size: 2em;
+    color: #232323;
+}
+
+.reply-button {
+    align-self: flex-end;
+    background-color: #0066cc;
+    color: #FFFFFF;
+    font-size: 2em;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reply-button:hover {
+    background-color: #0055aa;
+}
+
+footer {
+    text-align: center;
+    padding: 1em;
+    background-color: #FEFAE0;
+    color: #232323;
+    font-size: 1.5em;
+}
