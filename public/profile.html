@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+    <!-- Include Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Include Firebase SDK scripts -->
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+    <!-- Firebase Authentication -->
+    <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase Storage -->
+    <script defer src="/__/firebase/10.14.0/firebase-storage-compat.js"></script>
+    <!-- Initialize Firebase -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <!-- Your custom JavaScript file -->
+    <script src="profile.js" defer></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Profile</h1>
+        <div id="profile-container" class="mt-4">
+            <!-- Profile information -->
+            <div class="form-group">
+                <label><strong>Username:</strong></label>
+                <span id="username-display"></span>
+                <input type="text" id="username-input" class="form-control" style="display: none;">
+            </div>
+            <div class="form-group">
+                <label><strong>Email:</strong></label>
+                <span id="email-display"></span>
+            </div>
+            <div class="form-group">
+                <label><strong>Description:</strong></label>
+                <p id="description-display"></p>
+                <textarea id="description-input" class="form-control" rows="3" style="display: none;"></textarea>
+            </div>
+            <div class="form-group">
+                <label><strong>Profile Picture:</strong></label><br>
+                <img id="profile-picture" src="" alt="Profile Picture" width="200" height="200"><br>
+                <input type="file" id="profile-picture-input" accept="image/*" style="display: none;">
+            </div>
+            <!-- Save and Cancel Buttons for Editing -->
+            <div id="edit-actions" class="mb-3" style="display: none;">
+                <button id="save-profile-button" class="btn btn-success">Save</button>
+                <button id="cancel-edit-button" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+        <!-- Edit and Change Password Buttons -->
+        <div id="user-actions" class="mb-3">
+            <button id="edit-profile-button" class="btn btn-primary">Edit Profile</button>
+            <button id="change-password-button" class="btn btn-warning">Change Password</button>
+        </div>
+        <!-- Back Button -->
+        <button id="back-button" class="btn btn-secondary mb-3">Back</button>
+    </div>
+</body>
+</html>

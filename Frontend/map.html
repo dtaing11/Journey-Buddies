@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map - Journey Buddies</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <header>
+        <img src="assets/LOGO.png" alt="Journey Buddies Logo" class="logo">
+        <h1>Journey Buddies</h1>
+       
+        <nav>
+            <a href="#destinations">Posts</a>
+            <a href="map.html">Map</a>
+            <a href="#contact">Reels</a>
+            <a href="#contact">Your Group</a>
+            <a href="#contact">Inbox</a>
+        </nav>
+        
+        <div class="nav-sign-out">
+            <a href="#" id="signOutLink" class="sign-out">Sign Out</a>
+        </div>
+
+    </header>
+
+    <div class="map-container">
+        <div id="map" style="height: 650px;"></div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Travel Explorer. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([0, 0], 3); // Set initial view
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Define icons
+        var foodIcon = L.icon({
+            iconUrl: 'assets/Food.svg',
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
+
+        var musicIcon = L.icon({
+            iconUrl: 'assets/Music.svg',
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
+
+        var festivalIcon = L.icon({
+            iconUrl: 'assets/Festival.svg',
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
+
+        // Array of marker data
+        var markersData = [
+            { coords: [-37.8161, 144.9543], icon: foodIcon, popup: 'Food Festival - Click for details!' },
+            { coords: [-34.9285, 138.6007], icon: musicIcon, popup: 'Music Concert - Click for details!' },
+            { coords: [-33.8651, 151.2099], icon: festivalIcon, popup: 'Cultural Festival - Click for details!' }
+        ];
+
+        // Loop through markersData to add markers to the map
+        markersData.forEach(function(data) {
+            var marker = L.marker(data.coords, { icon: data.icon }).addTo(map)
+                .bindPopup(data.popup);
+
+            // Optional: Add click event for more actions
+            marker.on('click', function() {
+                window.location.href = 'post.html'; 
+             });
+        });
+
+        // Sign Out button functionality (example)
+        document.getElementById('signOutBtn').addEventListener('click', function() {
+            // Add sign-out logic here
+            alert('Signed out!'); // Replace with actual sign-out functionality
+        });
+    </script>
+</body>
+</html>

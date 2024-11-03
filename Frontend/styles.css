@@ -49,6 +49,8 @@ header {
 }
 
 
+
+
 .logo {
     width: 300px;
     height: auto;
@@ -64,12 +66,14 @@ h1{
 }
 nav {
     margin-top: 10px; 
+
     width: 100%; 
     display: end; 
     justify-content: end;
 }
 nav a {
-    margin: 0 15px;
+    margin: 0 10px;
+    font-size: 25px;
     color: #000000;
     text-decoration: none;
     font-weight: bold;
@@ -82,10 +86,12 @@ nav a:hover {
 }
 
 
+
+
 footer {
     text-align: center;
     padding: 15px;
-    background-color: var(--PrimaryAccent);
+    background-color: var(--SecondaryAccent);
     color: white;
     position: relative;
     bottom: 0;
