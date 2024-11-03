@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/10.14.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <script defer src="/__/firebase/10.14.0/firebase-firestore-compat.js"></script>
+  <script src="/main.js" defer></script>
   <link rel="stylesheet" href="./login.css">
   <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 
@@ -19,11 +25,9 @@
       </div>
       <div class="loginRight">
         <form class="loginBox" onsubmit="handleClick(event)">
-          <input placeholder="Email/Username" type="email" required class="loginInput" id="email">
-          <input placeholder="Password" type="password" required minlength="6" class="loginInput" id="password">
-          <button class="loginButton" type="submit" id="loginButton">
-            Log In
-          </button>
+          <input placeholder="Email/Username" type="email" required class="loginInput" id="signInEmail">
+          <input placeholder="Password" type="password" required minlength="6" class="loginInput" id="signInPassword">
+          <button class="loginButton" type="submit" id="signInBtn">Log In</button>
           <span class="loginForgot">Forgot Password?</span>
           <button class="loginRegisterButton" type="button" onclick="window.location.href='../CreateAccount/CreateAccount.html'">
             Create a New Account
@@ -32,6 +36,4 @@
       </div>
     </div>
   </div>
-
-</body>
 </html>
