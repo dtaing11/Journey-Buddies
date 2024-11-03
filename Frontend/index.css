@@ -1,0 +1,92 @@
+/*index*/
+
+.post-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 4em;
+    margin-bottom: 4em;
+}
+
+.post {
+    display: flex;
+    align-items: center;
+    background-color:#FAEDCE;
+    border: 1px solid #FEFAE0;
+    padding: 1em;
+    height:300px;
+    border-radius: 8px;
+}
+
+.post-image img {
+    max-width: 480px; 
+    max-height: 270px; 
+    width: auto;
+    height: auto; 
+    object-fit: contain; 
+    flex-grow: 1;
+    margin-right: 2em;
+    margin-left: 7em;
+}
+
+.post-content {
+    flex-grow: 1;
+    width: 10em;
+    margin-left: 12em;
+}
+
+.post-title {
+    font-size: 4em;
+    font-weight: bold;
+    color: #000000;
+}
+
+.post-date{
+    font-size: 3.5em;
+    color: #232323;
+    margin: 0.3em 0
+}
+.post-address{
+    font-size: 2.5em;
+    color: #232323;
+    margin-top: 1em;
+    margin-bottom: 0.25em
+
+}
+.post-interactions{
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    gap: 1em; 
+}
+.post-link {
+    font-size: 2.5em;
+    color: #232323;
+    margin-left: 2em;
+    margin-top: 1em;
+}
+.post-link a {
+    text-decoration: underline;
+    color: #0066cc;
+}
+.post-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    margin-bottom: 1em;
+}
+.post-rating button {
+    background: transparent; /* Optional: Make background transparent */
+    border: none; /* Remove button border */
+    cursor: pointer; /* Change cursor on hover */
+}
+.post-rating img {
+    width: 10em; /* Adjust size as needed */
+    height: auto;
+}
+#thumbs-up-count {
+    font-size: 2.5em;
+    color: #000000;
+    margin-top: 1.25em;
+    margin-right: 1em;
+    margin-left: 2em;
+}

@@ -132,7 +132,7 @@ signInBtn.onclick = () => {
             .then(userCredential => {
                 console.log("Signed in:", userCredential.user);
                 // Redirect to map.html
-                window.location.href = '../index.html'; // Adjust the path if needed
+                window.location.href = '../map.html'; // Adjust the path if needed
             })
             .catch(error => {
                 console.error("Error signing in:", error);

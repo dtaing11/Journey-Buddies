@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map - Journey Buddies</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="/__/firebase/10.14.0/firebase-app-compat.js"></script>
@@ -20,12 +22,12 @@
             <a href="map.html">Map</a>
             <a href="#contact">Reels</a>
             <a href="#contact">Your Group</a>
-            <a href="#contact">Indox</a>
+            <a href="#contact">Inbox</a>
         </nav>
     </header>
 
     <div class="map-container">
-        <div id="map"></div>
+        <div id="map" style="height: 650px;"></div>
     </div>
     <footer>
         <p>&copy; 2024 Travel Explorer. All rights reserved.</p>
@@ -40,33 +42,45 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        var festivalIcon = L.icon({
-    iconUrl: 'assets/Festival.svg', 
-    iconSize: [38, 95], 
-    iconAnchor: [22, 94], 
-    popupAnchor: [-3, -76] 
+        // Define icons
+        var foodIcon = L.icon({
+            iconUrl: 'assets/Food.svg',
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
         });
 
         var musicIcon = L.icon({
-    iconUrl: 'assets/Music.svg', 
-    iconSize: [38, 95], 
-    iconAnchor: [22, 94], 
-    popupAnchor: [-3, -76] 
-    });
-
-    var foodIcon = L.icon({
-    iconUrl: 'assets/Food.svg', 
-    iconSize: [38, 95], 
-    iconAnchor: [22, 94], 
-    popupAnchor: [-3, -76] 
+            iconUrl: 'assets/Music.svg',
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
         });
 
-    
+        var festivalIcon = L.icon({
+            iconUrl: 'assets/Festival.svg',
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76]
+        });
 
-    L.marker([-37.8161, 144.9543], {icon: foodIcon}).addTo(map) 
-        .bindPopup('Your marker text here.')
-        .openPopup();
+        // Array of marker data
+        var markersData = [
+            { coords: [-37.8161, 144.9543], icon: foodIcon, popup: 'Food Festival - Click for details!' },
+            { coords: [-34.9285, 138.6007], icon: musicIcon, popup: 'Music Concert - Click for details!' },
+            { coords: [-33.8651, 151.2099], icon: festivalIcon, popup: 'Cultural Festival - Click for details!' }
+        ];
 
+        // Loop through markersData to add markers to the map
+        markersData.forEach(function(data) {
+            var marker = L.marker(data.coords, { icon: data.icon }).addTo(map)
+                .bindPopup(data.popup);
+
+            // Optional: Add click event for more actions
+            marker.on('click', function() {
+                window.location.href = 'post.html'; 
+             });
+        });
     </script>
 </body>
 </html>
