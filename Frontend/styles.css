@@ -48,8 +48,33 @@ body {
     --SecondaryAccent: #E0E5B6;
     --PrimaryAccent: #CCD5AE;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; /* Optional: adjust for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+    background: #FEFAE0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #FAEDCE;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FAEDCE; /* Optional: different color on hover */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #FAEDCE #FEFAE0;
+}
+
 body {
-    font-family: 'Single Day', Arial, sans-serif; 
+    font-family: 'Single Day', Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
@@ -65,64 +90,6 @@ header {
 }
 
 
-.logo {
-    width: 100px;
-    height: auto;
-    margin-right: 10px;
-    padding: 5px;
-    border-radius: 8px;
-}
-
-nav {
-    margin-top: 10px; 
-    width: 100%; 
-    display: end; 
-    justify-content: end;
-}
-nav a {
-    margin: 0 15px;
-    color: #000000;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1em;
-    transition: color 0.3s;
-}
-
-nav a:hover {
-    color: #ffd700;
-}
-
-.map-container {
-    flex-grow: 1; 
-    width: 100%;
-    overflow: hidden; 
-}
-
-#map {
-    height: 100%; 
-}
-
-
-
-
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: var(--PrimaryAccent);
-    color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 20px;
-}
-
-header {
-    background-color:var(--primary-color);
-    color: var(--text-color);
-    padding: 20px;
-    display: flex;
-    align-items: center;
-}
 
 
 .logo {
@@ -131,6 +98,10 @@ header {
     margin-right: 10px;
     padding: 5px;
     border-radius: 8px;
+}
+.logo:hover 
+{
+    transform: scale(1.09);
 }
 
 nav {
@@ -153,68 +124,8 @@ nav a:hover {
     color: #ffd700;
 }
 
-.map-container {
-    flex-grow: 1; 
-    width: 100%;
-    overflow: hidden; 
-}
-
-#map {
-    height: 100%; 
-}
 
 
-
-section {
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 800px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-h2 {
-    color: #0077cc;
-}
-
-ul {
-    list-style-type: square;
-    padding-left: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 10px;
-}
-
-input[type="text"], input[type="email"], textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 5px;
-    font-size: 16px;
-}
-
-input[type="submit"] {
-    margin-top: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #0077cc;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-input[type="submit"]:hover {
-    background-color: #005fa3;
-}
 
 footer {
     text-align: center;
